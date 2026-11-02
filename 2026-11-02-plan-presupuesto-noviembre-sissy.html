@@ -404,6 +404,50 @@
   .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
   .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
   .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
 </style>
 </head>
 <body>
@@ -481,7 +525,7 @@
 
 <p class="nota"><b>Qué es la reserva.</b> Es plata que no tiene día ni campaña asignados: la guardamos para empujar sobre la marcha durante el período. Cuando un anuncio o una etapa responde (buen costo por lead o por pago iniciado, buena conversión y retorno real de 10× o más), le sumamos presupuesto ese mismo día, sin esperar a rehacer el plan. Si nada responde, no se gasta.</p>
 <h2>Línea de tiempo: el plan contra lo que pasó antes</h2>
-<p>Cada día de noviembre (barra de color) se compara con el día equivalente del Pre-Cyber y el Cyber (barra gris). Abajo, lo que vendió la tienda ese día en el historial y la línea punteada con lo que tendría que vender cada día del plan para llegar a un retorno de 10×. Se puede encender y apagar cada cosa.</p>
+<p>Cada día de noviembre (barra de color) se compara con el día equivalente del Pre-Cyber y el Cyber (barra gris). Las barras son el gasto total en Meta de depilación: todas las campañas, también AON y WhatsApp, sin Sculpt Freeze. Arriba de cada tramo, «evento» separa solo la campaña de la lista o del evento. Abajo, lo que vendió la tienda ese día en el historial y la línea punteada con lo que tendría que vender cada día del plan para llegar a un retorno de 10×. Se puede encender y apagar cada cosa.</p>
 <h3 style="margin:18px 0 4px;font-size:17px">Cómo se reparte el $5.000.000</h3>
 <div class="dist" role="img" aria-label="Reparto del presupuesto de noviembre">
   <span style="width:1.7%;background:#d9ccd4"></span><span style="width:19.4%;background:#e08ab8"></span><span style="width:10%;background:#c23a8c"></span><span style="width:36.2%;background:#15101a"></span><span style="width:17.4%;background:#8f8389"></span><span style="width:15.3%;background:repeating-linear-gradient(135deg,#c23a8c 0 6px,#f6e3ee 6px 12px)"></span>
@@ -507,7 +551,7 @@
 <p class="nota">Pre-Cyber: gasto de $49.000 a $86.000 al día y ventas de $1,0 M a $10,3 M al día. Cyber: gasto de $216.000 a $366.000 al día y ventas de $0,3 M a $7,0 M al día. El plan pone la lista y el Pre-Black más arriba que antes y el Black en el rango donde cada peso rindió más. Los números pequeños bajo cada día son la fecha equivalente de septiembre y octubre. El Pre-Cyber duró 6 días y el Pre-Black 5; el Black dura 11 días y el Cyber 10.</p>
 <script>
 (function(){
-var SEC=[{"t": "Captar la lista", "sub": ["plan: 3 al 14 nov", "antes: 12 al 23 sep"], "slots": [{"pd": 3, "pm": 81000, "st": "l", "hf": "2026-09-12", "hg": 62753, "hv": 0}, {"pd": 4, "pm": 81000, "st": "l", "hf": "2026-09-13", "hg": 76190, "hv": 0}, {"pd": 5, "pm": 81000, "st": "l", "hf": "2026-09-14", "hg": 77249, "hv": 225490}, {"pd": 6, "pm": 81000, "st": "l", "hf": "2026-09-15", "hg": 86666, "hv": 694300}, {"pd": 7, "pm": 81000, "st": "l", "hf": "2026-09-16", "hg": 65690, "hv": 70000}, {"pd": 8, "pm": 81000, "st": "l", "hf": "2026-09-17", "hg": 62590, "hv": 333900}, {"pd": 9, "pm": 101000, "st": "l", "hf": "2026-09-18", "hg": 65004, "hv": 0}, {"pd": 10, "pm": 101000, "st": "l", "hf": "2026-09-19", "hg": 44388, "hv": 0}, {"pd": 11, "pm": 101000, "st": "l", "hf": "2026-09-20", "hg": 52088, "hv": 0}, {"pd": 12, "pm": 141000, "st": "l", "hf": "2026-09-21", "hg": 111416, "hv": 1377990}, {"pd": 13, "pm": 141000, "st": "l", "hf": "2026-09-22", "hg": 84573, "hv": 1306300}, {"pd": 14, "pm": 141000, "st": "l", "hf": "2026-09-23", "hg": 73377, "hv": 322000}], "tp": 1212000, "tg": 861984, "tv": 4329980}, {"t": "Pre-Black", "sub": ["plan: 15 al 19 nov", "antes: Pre-Cyber 24 al 29 sep"], "slots": [{"pd": 15, "pm": 191000, "st": "p", "hf": "2026-09-24", "hg": 67767, "hv": 10260950}, {"pd": 16, "pm": 191000, "st": "p", "hf": "2026-09-25", "hg": 69685, "hv": 2898420}, {"pd": 17, "pm": 191000, "st": "p", "hf": "2026-09-26", "hg": 48814, "hv": 1610311}, {"pd": 18, "pm": 191000, "st": "p", "hf": "2026-09-27", "hg": 74684, "hv": 996030}, {"pd": 19, "pm": 191000, "st": "p", "hf": "2026-09-28", "hg": 75512, "hv": 3799124}, {"pd": null, "pm": null, "st": null, "hf": "2026-09-29", "hg": 85723, "hv": 4891710}], "tp": 955000, "tg": 422185, "tv": 24456545}, {"t": "Black", "sub": ["plan: 20 al 30 nov", "antes: Cyber 30 sep al 9 oct"], "slots": [{"pd": 20, "pm": 145500, "st": "b", "hf": "2026-09-30", "hg": 247863, "hv": 6950950}, {"pd": 21, "pm": 145500, "st": "b", "hf": "2026-10-01", "hg": 238465, "hv": 2301520}, {"pd": 22, "pm": 145500, "st": "b", "hf": "2026-10-02", "hg": 215685, "hv": 2556200}, {"pd": 23, "pm": 145500, "st": "b", "hf": "2026-10-03", "hg": 223427, "hv": 2420130}, {"pd": 24, "pm": 145500, "st": "b", "hf": "2026-10-04", "hg": 271830, "hv": 272700}, {"pd": 25, "pm": 145500, "st": "b", "hf": "2026-10-05", "hg": 287185, "hv": 2165940}, {"pd": 26, "pm": 145500, "st": "b", "hf": "2026-10-06", "hg": 345996, "hv": 3838490}, {"pd": 27, "pm": 285500, "st": "b", "hf": "2026-10-07", "hg": 365553, "hv": 4366200}, {"pd": 28, "pm": 195500, "st": "b", "hf": "2026-10-08", "hg": 355212, "hv": 3340800}, {"pd": 29, "pm": 195500, "st": "b", "hf": "2026-10-09", "hg": 232037, "hv": 2060800}, {"pd": 30, "pm": 285500, "st": "b", "hf": null, "hg": null, "hv": null}], "tp": 1980500, "tg": 2783253, "tv": 30273730}];
+var SEC=[{"t": "Captar la lista", "sub": ["plan: 3 al 14 nov", "antes: 12 al 23 sep"], "slots": [{"pd": 3, "pm": 81000, "st": "l", "hf": "2026-09-12", "hg": 62753, "he": 7927, "hv": 0}, {"pd": 4, "pm": 81000, "st": "l", "hf": "2026-09-13", "hg": 76190, "he": 11070, "hv": 0}, {"pd": 5, "pm": 81000, "st": "l", "hf": "2026-09-14", "hg": 77249, "he": 8069, "hv": 225490}, {"pd": 6, "pm": 81000, "st": "l", "hf": "2026-09-15", "hg": 86666, "he": 10052, "hv": 694300}, {"pd": 7, "pm": 81000, "st": "l", "hf": "2026-09-16", "hg": 65690, "he": 10902, "hv": 70000}, {"pd": 8, "pm": 81000, "st": "l", "hf": "2026-09-17", "hg": 62590, "he": 8819, "hv": 333900}, {"pd": 9, "pm": 101000, "st": "l", "hf": "2026-09-18", "hg": 65004, "he": 9293, "hv": 0}, {"pd": 10, "pm": 101000, "st": "l", "hf": "2026-09-19", "hg": 44388, "he": 11773, "hv": 0}, {"pd": 11, "pm": 101000, "st": "l", "hf": "2026-09-20", "hg": 52088, "he": 11068, "hv": 0}, {"pd": 12, "pm": 141000, "st": "l", "hf": "2026-09-21", "hg": 111416, "he": 11227, "hv": 1377990}, {"pd": 13, "pm": 141000, "st": "l", "hf": "2026-09-22", "hg": 84573, "he": 13154, "hv": 1306300}, {"pd": 14, "pm": 141000, "st": "l", "hf": "2026-09-23", "hg": 73377, "he": 17648, "hv": 322000}], "tp": 1212000, "tg": 861984, "tv": 4329980, "te": 131002, "pe": 720000}, {"t": "Pre-Black", "sub": ["plan: 15 al 19 nov", "antes: Pre-Cyber 24 al 29 sep"], "slots": [{"pd": 15, "pm": 191000, "st": "p", "hf": "2026-09-24", "hg": 67767, "he": 22234, "hv": 10260950}, {"pd": 16, "pm": 191000, "st": "p", "hf": "2026-09-25", "hg": 69685, "he": 23745, "hv": 2898420}, {"pd": 17, "pm": 191000, "st": "p", "hf": "2026-09-26", "hg": 48814, "he": 17272, "hv": 1610311}, {"pd": 18, "pm": 191000, "st": "p", "hf": "2026-09-27", "hg": 74684, "he": 23325, "hv": 996030}, {"pd": 19, "pm": 191000, "st": "p", "hf": "2026-09-28", "hg": 75512, "he": 29961, "hv": 3799124}, {"pd": null, "pm": null, "st": null, "hf": "2026-09-29", "hg": 85723, "he": 49698, "hv": 4891710}], "tp": 955000, "tg": 422185, "tv": 24456545, "te": 166235, "pe": 750000}, {"t": "Black", "sub": ["plan: 20 al 30 nov", "antes: Cyber 30 sep al 9 oct"], "slots": [{"pd": 20, "pm": 145500, "st": "b", "hf": "2026-09-30", "hg": 247863, "he": 224726, "hv": 6950950}, {"pd": 21, "pm": 145500, "st": "b", "hf": "2026-10-01", "hg": 238465, "he": 230063, "hv": 2301520}, {"pd": 22, "pm": 145500, "st": "b", "hf": "2026-10-02", "hg": 215685, "he": 209035, "hv": 2556200}, {"pd": 23, "pm": 145500, "st": "b", "hf": "2026-10-03", "hg": 223427, "he": 218493, "hv": 2420130}, {"pd": 24, "pm": 145500, "st": "b", "hf": "2026-10-04", "hg": 271830, "he": 264404, "hv": 272700}, {"pd": 25, "pm": 145500, "st": "b", "hf": "2026-10-05", "hg": 287185, "he": 279899, "hv": 2165940}, {"pd": 26, "pm": 145500, "st": "b", "hf": "2026-10-06", "hg": 345996, "he": 338322, "hv": 3838490}, {"pd": 27, "pm": 285500, "st": "b", "hf": "2026-10-07", "hg": 365553, "he": 357800, "hv": 4366200}, {"pd": 28, "pm": 195500, "st": "b", "hf": "2026-10-08", "hg": 355212, "he": 347130, "hv": 3340800}, {"pd": 29, "pm": 195500, "st": "b", "hf": "2026-10-09", "hg": 232037, "he": 223521, "hv": 2060800}, {"pd": 30, "pm": 285500, "st": "b", "hf": null, "hg": null, "he": null, "hv": null}], "tp": 1980500, "tg": 2783253, "tv": 30273730, "te": 2693393, "pe": 1810000}];
 var $=function(s){return document.querySelector(s)};
 var fmt=function(n){return '$'+Math.round(n).toLocaleString('es-CL')};
 var fm=function(n){return '$'+(n/1e6).toFixed(1).replace('.',',')+' M'};
@@ -531,7 +575,7 @@ function build(){
   var s='<svg viewBox="0 0 '+W+' '+BOT+'" id="tl-svg" role="img" aria-label="Gasto planificado de noviembre frente al gasto y las ventas del Pre-Cyber y el Cyber, por tramo">';
   SEC.forEach(function(sec,si){
     s+='<rect x="'+(sec.x0-3)+'" y="2" width="'+(sec.x1-sec.x0+6)+'" height="'+(BOT-30)+'" rx="6" fill="'+['#fbf1f6','#f6e3ee','#efeaf2'][si]+'"/>';
-    s+='<text x="'+(sec.x0+2)+'" y="20" font-size="13.5" font-weight="700" fill="#1b1417">'+sec.t+'</text><text x="'+(sec.x0+2)+'" y="35" font-size="10.5" fill="#5d5258">'+sec.sub[0]+'</text><text x="'+(sec.x0+2)+'" y="48" font-size="10.5" fill="#5d5258">'+sec.sub[1]+'</text><text x="'+(sec.x0+2)+'" y="63" font-size="10.5" font-weight="600" fill="#1b1417">Gasto del tramo: plan '+fmt(sec.tp)+'</text><text x="'+(sec.x0+2)+'" y="76" font-size="10.5" fill="#5d5258">gasto total de antes '+fmt(sec.tg)+'</text><text x="'+(sec.x0+2)+'" y="89" font-size="10.5" fill="#5d5258">ventas de antes '+fm(sec.tv)+' ('+(sec.tv/sec.tg).toFixed(1).replace('.',',')+'×)</text>';
+    s+='<text x="'+(sec.x0+2)+'" y="20" font-size="13.5" font-weight="700" fill="#1b1417">'+sec.t+'</text><text x="'+(sec.x0+2)+'" y="35" font-size="10.5" fill="#5d5258">'+sec.sub[0]+'</text><text x="'+(sec.x0+2)+'" y="48" font-size="10.5" fill="#5d5258">'+sec.sub[1]+'</text><text x="'+(sec.x0+2)+'" y="63" font-size="9.5" font-weight="600" fill="#1b1417">Plan '+fmt(sec.tp)+' · evento '+fmt(sec.pe)+'</text><text x="'+(sec.x0+2)+'" y="76" font-size="9.5" fill="#5d5258">Antes '+fmt(sec.tg)+' · evento '+fmt(sec.te)+'</text><text x="'+(sec.x0+2)+'" y="89" font-size="9.5" fill="#5d5258">Ventas de antes '+fm(sec.tv)+' ('+(sec.tv/sec.tg).toFixed(1).replace('.',',')+'×)</text>';
   });
   s+='<text x="'+(L)+'" y="'+(T1-6)+'" font-size="11.5" font-weight="600" fill="#5d5258">Gasto en Meta por día</text>';
   [0,100000,200000,300000,400000].forEach(function(t){var y=y1(t);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#e4dad6"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#5d5258">'+(t/1000)+' mil</text>'});
@@ -558,7 +602,7 @@ function build(){
 function read(o){
   var h='';
   if(o.pd!=null)h+='<b>'+o.pd+' de noviembre</b> · plan '+fmt(o.pm)+' ('+stNom[o.st]+')';else h+='<b>Sin día equivalente en el plan</b>';
-  if(o.pm!=null)h+='<br>Para un retorno de 10× el día tendría que vender <b>'+fm(o.pm*10)+'</b>';if(o.hf)h+='<br>El día equivalente de antes, <b>'+dm(o.hf)+'</b>: gasto '+fmt(o.hg)+' · ventas de la tienda '+fm(o.hv);else h+='<br>Sin día equivalente en el historial';
+  if(o.pm!=null)h+='<br>Para un retorno de 10× el día tendría que vender <b>'+fm(o.pm*10)+'</b>';if(o.hf)h+='<br>El día equivalente de antes, <b>'+dm(o.hf)+'</b>: gasto total '+fmt(o.hg)+' (del evento '+fmt(o.he)+') · ventas de la tienda '+fm(o.hv);else h+='<br>Sin día equivalente en el historial';
   return h;
 }
 function draw(){
