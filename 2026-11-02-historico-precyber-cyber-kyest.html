@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex, nofollow">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Histórico Pre-Cyber y Cyber · Kyest</title>
+<style>
+  :root {
+    --crema: #f8f4f1;
+    --tinta: #1b1417;
+    --suave: #5d5258;
+    --linea: #e4dad6;
+    --rosa: #c23a8c;
+    --rosa-claro: #f6e3ee;
+    --negro: #15101a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { margin-bottom: 28px; }
+  .etiqueta { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--rosa); font-weight: 600; margin: 0 0 6px; }
+  h1 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1.1; margin: 0 0 8px; }
+  .sub { color: var(--suave); margin: 0; }
+  h2 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 26px; margin: 40px 0 12px; break-after: avoid; }
+  p { margin: 0 0 10px; }
+
+  .totales { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  .total { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 16px; break-inside: avoid; }
+  .total b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .total span { font-size: 14px; color: var(--suave); }
+  .total.grande { background: var(--negro); border-color: var(--negro); color: #fff; }
+  .total.grande span { color: #d9ccd4; }
+  .nota { font-size: 14px; color: var(--suave); }
+
+  .tabla { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; font-size: 15.5px; }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--linea); }
+  th { background: var(--rosa-claro); font-weight: 600; font-size: 14px; }
+  tr:last-child td { border-bottom: 0; }
+  tr { break-inside: avoid; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tfoot td { font-weight: 700; background: #faf6f4; }
+  .semana { font-weight: 600; white-space: nowrap; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 14px; }
+
+  .tarjetas { display: grid; gap: 12px; }
+  .tarjeta { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .tarjeta h3 { color: var(--tinta); }
+  .tarjeta .monto { color: var(--rosa); }
+  .tarjeta h3 { margin: 0 0 4px; font-size: 17px; }
+  .tarjeta .monto { float: right; font-variant-numeric: tabular-nums; font-weight: 700; margin-left: 12px; }
+  .tarjeta p { margin: 0 0 4px; font-size: 15.5px; }
+  .tarjeta p.q { color: var(--suave); }
+
+  .cifras { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cifra { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .cifra h3 { margin: 0 0 6px; font-size: 16px; }
+  .cifra p { font-size: 15.5px; }
+
+  .decidir { background: var(--negro); color: #fff; border-radius: 12px; padding: 22px 24px; break-inside: avoid; }
+  .decidir h2 { color: #fff; margin: 0 0 10px; }
+  .decidir ul { margin: 0; padding-left: 20px; }
+  .decidir li { margin-bottom: 10px; }
+  .decidir b { color: #f6b9de; }
+
+  ul.reglas { margin: 0; padding-left: 20px; }
+  ul.reglas li { margin-bottom: 6px; }
+  footer { margin-top: 36px; font-size: 13.5px; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 14px; }
+
+
+  .leyenda { font-size: 14px; color: var(--suave); }
+  .chip { display: inline-block; padding: 2px 10px; border-radius: 999px; margin-right: 6px; font-size: 13px; font-weight: 600; }
+  .chip.l, .dia.l { background: var(--rosa-claro); color: var(--tinta); }
+  .chip.p, .dia.p { background: #e9a9cf; color: var(--tinta); }
+  .chip.b, .dia.b { background: var(--negro); color: #fff; }
+  .cal { background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+  .cab, .sem { display: grid; grid-template-columns: repeat(7, 1fr) 1.15fr; }
+  .cab span { padding: 8px 10px; font-size: 13px; font-weight: 600; background: #faf6f4; border-bottom: 1px solid var(--linea); }
+  .sem { border-bottom: 1px solid var(--linea); break-inside: avoid; }
+  .dia { padding: 8px 10px; min-height: 96px; display: flex; flex-direction: column; gap: 2px; border-right: 1px solid rgba(255,255,255,.6); }
+  .dia .dsem { display: none; }
+  .dia .num { font-size: 15px; }
+  .dia .mon { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .dia .nota { font-size: 12.5px; line-height: 1.3; opacity: .9; }
+  .dia.vacio { background: #faf6f4; }
+  .dia.hoy { background: #fff; border: 2px dashed var(--rosa); }
+  .dia.totsem { background: #faf6f4; color: var(--tinta); border-right: 0; justify-content: center; }
+  .dia.totsem .etq { font-size: 13px; color: var(--suave); }
+  .dia.totsem .mon { font-size: 17px; }
+  .pie { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--negro); color: #fff; font-size: 17px; }
+  @media (max-width: 760px) {
+    .cab { display: none; }
+    .sem { grid-template-columns: 1fr; }
+    .dia { min-height: 0; flex-direction: row; align-items: baseline; gap: 10px; padding: 8px 12px; }
+    .dia .dsem { display: inline; font-size: 13px; width: 34px; }
+    .dia .num { width: 24px; }
+    .dia.vacio { display: none; }
+    .dia.totsem { flex-direction: row; justify-content: space-between; align-items: baseline; }
+    .dia.totsem .dsem { display: none; }
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: 32px; }
+    .totales { grid-template-columns: repeat(2, 1fr); }
+    .cifras { grid-template-columns: 1fr; }
+    table { font-size: 14px; }
+    th, td { padding: 8px 8px; }
+  }
+  @media print {
+    body { background: #fff; font-size: 14px; }
+    main { padding: 0; }
+    h2 { margin-top: 24px; }
+    .tarjeta, .cifra, .total, .decidir, tr { break-inside: avoid; }
+  }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sw { width: 22px; height: 0; border-top: 3px solid; display: inline-block; }
+  .tl-ctl .sw.punt { border-top-style: dashed; }
+  .tl-ctl .sw.barra { height: 10px; border: 0; background: var(--rosa); width: 14px; border-radius: 2px; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="etiqueta">Kyest · Black Friday 2026</p>
+  <h1>Histórico del Pre-Cyber y el Cyber</h1>
+  <p class="sub">De dónde salen los números del plan de noviembre. Septiembre y octubre de 2026, Meta y Shopify, día por día.</p>
+  <p class="nav"><a href="2026-11-02-plan-presupuesto-noviembre-sissy.html">Volver al plan de presupuesto</a></p>
+</header>
+
+<h2>Resumen por período</h2>
+<div class="tabla"><table>
+<thead><tr><th>Período</th><th class="n">Días</th><th class="n">Gasto en Meta (depilación)</th><th class="n">Ventas web</th><th class="n">Ventas del local</th><th class="n">Total tienda</th><th class="n">Ventas por cada $1 de Meta</th></tr></thead>
+<tbody>
+<tr><td>Antes (29-jul al 31-ago)</td><td class='n'>34</td><td class='n'>$2.441.040<span class='peq'>$71.795 al día</span></td><td class='n'>$2.981.800<span class='peq'>21 órdenes</span></td><td class='n'>$36.462.530<span class='peq'>212 órdenes</span></td><td class='n'><b>$39.444.330</b></td><td class='n'>16.2×</td></tr>
+<tr><td>Captación de la lista (1 al 23-sep)</td><td class='n'>23</td><td class='n'>$1.678.830<span class='peq'>$72.993 al día</span></td><td class='n'>$847.285<span class='peq'>6 órdenes</span></td><td class='n'>$17.776.170<span class='peq'>86 órdenes</span></td><td class='n'><b>$18.623.455</b></td><td class='n'>11.1×</td></tr>
+<tr><td>Pre-Cyber (24 al 29-sep)</td><td class='n'>6</td><td class='n'>$422.185<span class='peq'>$70.364 al día</span></td><td class='n'>$14.718.150<span class='peq'>93 órdenes</span></td><td class='n'>$9.738.395<span class='peq'>73 órdenes</span></td><td class='n'><b>$24.456.545</b></td><td class='n'>57.9×</td></tr>
+<tr><td>Cyber (30-sep al 9-oct)</td><td class='n'>10</td><td class='n'>$2.783.253<span class='peq'>$278.325 al día</span></td><td class='n'>$12.888.660<span class='peq'>83 órdenes</span></td><td class='n'>$17.385.070<span class='peq'>106 órdenes</span></td><td class='n'><b>$30.273.730</b></td><td class='n'>10.9×</td></tr>
+<tr><td>Transición (10 al 12-oct)</td><td class='n'>3</td><td class='n'>$93.057<span class='peq'>$31.019 al día</span></td><td class='n'>$1.155.000<span class='peq'>6 órdenes</span></td><td class='n'>$100.000<span class='peq'>1 órdenes</span></td><td class='n'><b>$1.255.000</b></td><td class='n'>13.5×</td></tr>
+<tr><td>Vuelta a normal (13 al 26-oct)</td><td class='n'>14</td><td class='n'>$583.868<span class='peq'>$41.705 al día</span></td><td class='n'>$784.900<span class='peq'>5 órdenes</span></td><td class='n'>$8.830.730<span class='peq'>49 órdenes</span></td><td class='n'><b>$9.615.630</b></td><td class='n'>16.5×</td></tr>
+</tbody></table></div>
+<p class="nota">Ventas: órdenes pagadas de todos los productos, web y local. Gasto: Meta en depilación, sin Sculpt Freeze. Meta no ve las ventas del local (en el Pre-Cyber fueron 40% de la venta y en el Cyber 57%), así que «por cada $1» es un techo y no lo que causaron solo los anuncios. El informe del 10 de octubre usa otro corte y solo depilación: $24,9 M en el Pre-Cyber y $24,0 M en el Cyber.</p>
+
+<h2>Septiembre y octubre completos</h2>
+<div class="tabla"><table>
+<thead><tr><th>Período</th><th class="n">Gasto total en Meta</th><th class="n">Ventas de la tienda</th><th class="n">Ventas por cada $1</th></tr></thead>
+<tbody>
+<tr><td>Septiembre (1 al 30)</td><td class="n">$3.123.527</td><td class="n">$50.030.950</td><td class="n"><b>16,0×</b></td></tr>
+<tr><td>Octubre (1 al 18)</td><td class="n">$3.255.195</td><td class="n">$28.012.730</td><td class="n"><b>8,6×</b></td></tr>
+<tr><td>Octubre (1 al 26)</td><td class="n">$3.736.625</td><td class="n">$34.193.410</td><td class="n"><b>9,2×</b></td></tr>
+</tbody></table></div>
+<p class="nota">Gasto total de la cuenta, con Sculpt Freeze. Ventas: web y local, todos los productos. El criterio de Sissy es un retorno real de 10× o más: septiembre lo pasó con holgura y octubre quedó por debajo.</p>
+
+<h2>Día por día, del 1 de septiembre al 13 de octubre</h2>
+<svg viewBox="0 0 940 360" role="img" aria-label="Ventas diarias de la tienda y gasto diario en Meta, 1 de septiembre al 13 de octubre" class="graf"><rect x="64.0" y="0" width="463.2" height="354" fill="#faf6f4"/><text x="295.6" y="11" text-anchor="middle" font-size="11" fill="#5d5258">Captación de la lista</text><rect x="527.2" y="0" width="120.8" height="354" fill="#f6e3ee"/><text x="587.6" y="11" text-anchor="middle" font-size="11" fill="#5d5258">Pre-Cyber</text><rect x="648.0" y="0" width="201.4" height="354" fill="#e9e4ef"/><text x="748.7" y="11" text-anchor="middle" font-size="11" fill="#5d5258">Cyber</text><rect x="849.4" y="0" width="60.4" height="354" fill="#faf6f4"/><text x="879.7" y="11" text-anchor="middle" font-size="11" fill="#5d5258">Trans.</text><line x1="64" x2="930" y1="188.0" y2="188.0" stroke="#e4dad6"/><text x="58" y="192.0" text-anchor="end" font-size="11" fill="#5d5258">0 M</text><line x1="64" x2="930" y1="102.2" y2="102.2" stroke="#e4dad6"/><text x="58" y="106.2" text-anchor="end" font-size="11" fill="#5d5258">5 M</text><line x1="64" x2="930" y1="16.5" y2="16.5" stroke="#e4dad6"/><text x="58" y="20.5" text-anchor="end" font-size="11" fill="#5d5258">10 M</text><rect x="65.0" y="153.6" width="18.1" height="34.4" fill="#8f8389"/><rect x="65.0" y="153.6" width="18.1" height="0.0" fill="#c23a8c"/><rect x="85.1" y="176.9" width="18.1" height="11.1" fill="#8f8389"/><rect x="85.1" y="169.0" width="18.1" height="7.9" fill="#c23a8c"/><rect x="105.3" y="170.8" width="18.1" height="17.2" fill="#8f8389"/><rect x="105.3" y="170.8" width="18.1" height="0.0" fill="#c23a8c"/><rect x="125.4" y="135.9" width="18.1" height="52.1" fill="#8f8389"/><rect x="125.4" y="135.9" width="18.1" height="0.0" fill="#c23a8c"/><rect x="145.6" y="175.6" width="18.1" height="12.4" fill="#8f8389"/><rect x="145.6" y="175.1" width="18.1" height="0.5" fill="#c23a8c"/><rect x="165.7" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="165.7" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="185.8" y="153.3" width="18.1" height="34.7" fill="#8f8389"/><rect x="185.8" y="153.3" width="18.1" height="0.0" fill="#c23a8c"/><rect x="206.0" y="180.2" width="18.1" height="7.8" fill="#8f8389"/><rect x="206.0" y="179.4" width="18.1" height="0.8" fill="#c23a8c"/><rect x="226.1" y="185.8" width="18.1" height="2.2" fill="#8f8389"/><rect x="226.1" y="185.8" width="18.1" height="0.0" fill="#c23a8c"/><rect x="246.3" y="168.3" width="18.1" height="19.7" fill="#8f8389"/><rect x="246.3" y="168.3" width="18.1" height="0.0" fill="#c23a8c"/><rect x="266.4" y="143.7" width="18.1" height="44.3" fill="#8f8389"/><rect x="266.4" y="143.7" width="18.1" height="0.0" fill="#c23a8c"/><rect x="286.5" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="286.5" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="306.7" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="306.7" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="326.8" y="184.8" width="18.1" height="3.2" fill="#8f8389"/><rect x="326.8" y="184.1" width="18.1" height="0.7" fill="#c23a8c"/><rect x="347.0" y="176.1" width="18.1" height="11.9" fill="#8f8389"/><rect x="347.0" y="176.1" width="18.1" height="0.0" fill="#c23a8c"/><rect x="367.1" y="186.8" width="18.1" height="1.2" fill="#8f8389"/><rect x="367.1" y="186.8" width="18.1" height="0.0" fill="#c23a8c"/><rect x="387.2" y="182.3" width="18.1" height="5.7" fill="#8f8389"/><rect x="387.2" y="182.3" width="18.1" height="0.0" fill="#c23a8c"/><rect x="407.4" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="407.4" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="427.5" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="427.5" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="447.7" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="447.7" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="467.8" y="164.4" width="18.1" height="23.6" fill="#8f8389"/><rect x="467.8" y="164.4" width="18.1" height="0.0" fill="#c23a8c"/><rect x="487.9" y="170.2" width="18.1" height="17.8" fill="#8f8389"/><rect x="487.9" y="165.6" width="18.1" height="4.6" fill="#c23a8c"/><rect x="508.1" y="182.5" width="18.1" height="5.5" fill="#8f8389"/><rect x="508.1" y="182.5" width="18.1" height="0.0" fill="#c23a8c"/><rect x="528.2" y="139.3" width="18.1" height="48.7" fill="#8f8389"/><rect x="528.2" y="12.0" width="18.1" height="127.3" fill="#c23a8c"/><rect x="548.3" y="160.0" width="18.1" height="28.0" fill="#8f8389"/><rect x="548.3" y="138.3" width="18.1" height="21.7" fill="#c23a8c"/><rect x="568.5" y="176.0" width="18.1" height="12.0" fill="#8f8389"/><rect x="568.5" y="160.4" width="18.1" height="15.7" fill="#c23a8c"/><rect x="588.6" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="588.6" y="170.9" width="18.1" height="17.1" fill="#c23a8c"/><rect x="608.8" y="148.8" width="18.1" height="39.2" fill="#8f8389"/><rect x="608.8" y="122.8" width="18.1" height="26.0" fill="#c23a8c"/><rect x="628.9" y="148.8" width="18.1" height="39.2" fill="#8f8389"/><rect x="628.9" y="104.1" width="18.1" height="44.7" fill="#c23a8c"/><rect x="649.0" y="102.4" width="18.1" height="85.6" fill="#8f8389"/><rect x="649.0" y="68.8" width="18.1" height="33.6" fill="#c23a8c"/><rect x="669.2" y="164.2" width="18.1" height="23.8" fill="#8f8389"/><rect x="669.2" y="148.5" width="18.1" height="15.7" fill="#c23a8c"/><rect x="689.3" y="171.4" width="18.1" height="16.6" fill="#8f8389"/><rect x="689.3" y="144.2" width="18.1" height="27.3" fill="#c23a8c"/><rect x="709.5" y="151.6" width="18.1" height="36.4" fill="#8f8389"/><rect x="709.5" y="146.5" width="18.1" height="5.1" fill="#c23a8c"/><rect x="729.6" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="729.6" y="183.3" width="18.1" height="4.7" fill="#c23a8c"/><rect x="749.7" y="168.6" width="18.1" height="19.4" fill="#8f8389"/><rect x="749.7" y="150.8" width="18.1" height="17.8" fill="#c23a8c"/><rect x="769.9" y="150.3" width="18.1" height="37.7" fill="#8f8389"/><rect x="769.9" y="122.2" width="18.1" height="28.1" fill="#c23a8c"/><rect x="790.0" y="146.5" width="18.1" height="41.5" fill="#8f8389"/><rect x="790.0" y="113.1" width="18.1" height="33.4" fill="#c23a8c"/><rect x="810.2" y="169.2" width="18.1" height="18.8" fill="#8f8389"/><rect x="810.2" y="130.7" width="18.1" height="38.5" fill="#c23a8c"/><rect x="830.3" y="169.6" width="18.1" height="18.4" fill="#8f8389"/><rect x="830.3" y="152.7" width="18.1" height="17.0" fill="#c23a8c"/><rect x="850.4" y="186.3" width="18.1" height="1.7" fill="#8f8389"/><rect x="850.4" y="177.6" width="18.1" height="8.7" fill="#c23a8c"/><rect x="870.6" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="870.6" y="188.0" width="18.1" height="0.0" fill="#c23a8c"/><rect x="890.7" y="188.0" width="18.1" height="0.0" fill="#8f8389"/><rect x="890.7" y="176.9" width="18.1" height="11.1" fill="#c23a8c"/><rect x="910.9" y="177.3" width="18.1" height="10.7" fill="#8f8389"/><rect x="910.9" y="171.5" width="18.1" height="5.8" fill="#c23a8c"/><line x1="64" x2="930" y1="308.0" y2="308.0" stroke="#e4dad6"/><text x="58" y="312.0" text-anchor="end" font-size="11" fill="#5d5258">0 mil</text><line x1="64" x2="930" y1="266.4" y2="266.4" stroke="#e4dad6"/><text x="58" y="270.4" text-anchor="end" font-size="11" fill="#5d5258">200 mil</text><line x1="64" x2="930" y1="224.8" y2="224.8" stroke="#e4dad6"/><text x="58" y="228.8" text-anchor="end" font-size="11" fill="#5d5258">400 mil</text><rect x="65.0" y="293.0" width="18.1" height="15.0" fill="#15101a"/><rect x="85.1" y="292.8" width="18.1" height="15.2" fill="#15101a"/><rect x="105.3" y="293.4" width="18.1" height="14.6" fill="#15101a"/><rect x="125.4" y="295.7" width="18.1" height="12.3" fill="#15101a"/><rect x="145.6" y="293.5" width="18.1" height="14.5" fill="#15101a"/><rect x="165.7" y="291.9" width="18.1" height="16.1" fill="#15101a"/><rect x="185.8" y="290.5" width="18.1" height="17.5" fill="#15101a"/><rect x="206.0" y="292.1" width="18.1" height="15.9" fill="#15101a"/><rect x="226.1" y="290.9" width="18.1" height="17.1" fill="#15101a"/><rect x="246.3" y="291.9" width="18.1" height="16.1" fill="#15101a"/><rect x="266.4" y="292.5" width="18.1" height="15.5" fill="#15101a"/><rect x="286.5" y="295.0" width="18.1" height="13.0" fill="#15101a"/><rect x="306.7" y="292.2" width="18.1" height="15.8" fill="#15101a"/><rect x="326.8" y="291.9" width="18.1" height="16.1" fill="#15101a"/><rect x="347.0" y="290.0" width="18.1" height="18.0" fill="#15101a"/><rect x="367.1" y="294.3" width="18.1" height="13.7" fill="#15101a"/><rect x="387.2" y="295.0" width="18.1" height="13.0" fill="#15101a"/><rect x="407.4" y="294.5" width="18.1" height="13.5" fill="#15101a"/><rect x="427.5" y="298.8" width="18.1" height="9.2" fill="#15101a"/><rect x="447.7" y="297.2" width="18.1" height="10.8" fill="#15101a"/><rect x="467.8" y="284.8" width="18.1" height="23.2" fill="#15101a"/><rect x="487.9" y="290.4" width="18.1" height="17.6" fill="#15101a"/><rect x="508.1" y="292.7" width="18.1" height="15.3" fill="#15101a"/><rect x="528.2" y="293.9" width="18.1" height="14.1" fill="#15101a"/><rect x="548.3" y="293.5" width="18.1" height="14.5" fill="#15101a"/><rect x="568.5" y="297.9" width="18.1" height="10.1" fill="#15101a"/><rect x="588.6" y="292.5" width="18.1" height="15.5" fill="#15101a"/><rect x="608.8" y="292.3" width="18.1" height="15.7" fill="#15101a"/><rect x="628.9" y="290.2" width="18.1" height="17.8" fill="#15101a"/><rect x="649.0" y="256.5" width="18.1" height="51.5" fill="#15101a"/><rect x="669.2" y="258.4" width="18.1" height="49.6" fill="#15101a"/><rect x="689.3" y="263.2" width="18.1" height="44.8" fill="#15101a"/><rect x="709.5" y="261.5" width="18.1" height="46.5" fill="#15101a"/><rect x="729.6" y="251.5" width="18.1" height="56.5" fill="#15101a"/><rect x="749.7" y="248.3" width="18.1" height="59.7" fill="#15101a"/><rect x="769.9" y="236.1" width="18.1" height="71.9" fill="#15101a"/><rect x="790.0" y="232.0" width="18.1" height="76.0" fill="#15101a"/><rect x="810.2" y="234.1" width="18.1" height="73.9" fill="#15101a"/><rect x="830.3" y="259.8" width="18.1" height="48.2" fill="#15101a"/><rect x="850.4" y="300.5" width="18.1" height="7.5" fill="#15101a"/><rect x="870.6" y="301.7" width="18.1" height="6.3" fill="#15101a"/><rect x="890.7" y="302.4" width="18.1" height="5.6" fill="#15101a"/><rect x="910.9" y="301.9" width="18.1" height="6.1" fill="#15101a"/><text x="74.1" y="350" text-anchor="middle" font-size="11" fill="#5d5258">1-sep</text><text x="215.0" y="350" text-anchor="middle" font-size="11" fill="#5d5258">8-sep</text><text x="356.0" y="350" text-anchor="middle" font-size="11" fill="#5d5258">15-sep</text><text x="537.3" y="350" text-anchor="middle" font-size="11" fill="#5d5258">24-sep</text><text x="658.1" y="350" text-anchor="middle" font-size="11" fill="#5d5258">30-sep</text><text x="839.4" y="350" text-anchor="middle" font-size="11" fill="#5d5258">9-oct</text><text x="919.9" y="350" text-anchor="middle" font-size="11" fill="#5d5258">13-oct</text><text x="64" y="214" font-size="11" fill="#5d5258" font-weight="600">Ventas de la tienda por día (web arriba en rosado, local abajo en gris)</text><text x="64" y="334" font-size="11" fill="#5d5258" font-weight="600" dy="-6"></text><text x="64" y="230" font-size="11" fill="#5d5258" font-weight="600">Gasto de Meta en depilación por día</text></svg>
+<p class="nota">El Pre-Cyber vendió unos $4,1 M al día con $70.000 de gasto diario; el Cyber, unos $3,0 M al día con $278.000. La venta vino de la lista y no del gasto.</p>
+
+<h2>Los días del evento</h2>
+<div class="tabla"><table>
+<thead><tr><th>Día</th><th class="n">Gasto en Meta</th><th class="n">Ventas web</th><th class="n">Ventas del local</th><th class="n">Total tienda</th><th class="n">Web por cada $1 de Meta</th><th>Qué pasó</th></tr></thead>
+<tbody>
+<tr><td>24-sep</td><td class='n'>$67.767</td><td class='n'>$7.420.860</td><td class='n'>$2.840.090</td><td class='n'><b>$10.260.950</b></td><td class='n'>109.5</td><td>Abre el Pre-Cyber</td></tr>
+<tr><td>25-sep</td><td class='n'>$69.685</td><td class='n'>$1.267.650</td><td class='n'>$1.630.770</td><td class='n'><b>$2.898.420</b></td><td class='n'>18.2</td><td></td></tr>
+<tr><td>26-sep</td><td class='n'>$48.814</td><td class='n'>$913.410</td><td class='n'>$696.901</td><td class='n'><b>$1.610.311</b></td><td class='n'>18.7</td><td></td></tr>
+<tr><td>27-sep</td><td class='n'>$74.684</td><td class='n'>$996.030</td><td class='n'>$0</td><td class='n'><b>$996.030</b></td><td class='n'>13.3</td><td></td></tr>
+<tr><td>28-sep</td><td class='n'>$75.512</td><td class='n'>$1.515.510</td><td class='n'>$2.283.614</td><td class='n'><b>$3.799.124</b></td><td class='n'>20.1</td><td></td></tr>
+<tr><td>29-sep</td><td class='n'>$85.723</td><td class='n'>$2.604.690</td><td class='n'>$2.287.020</td><td class='n'><b>$4.891.710</b></td><td class='n'>30.4</td><td>Cierra el Pre-Cyber</td></tr>
+<tr><td>30-sep</td><td class='n'>$247.863</td><td class='n'>$1.961.460</td><td class='n'>$4.989.490</td><td class='n'><b>$6.950.950</b></td><td class='n'>7.9</td><td>Abre el Cyber</td></tr>
+<tr><td>1-oct</td><td class='n'>$238.465</td><td class='n'>$916.200</td><td class='n'>$1.385.320</td><td class='n'><b>$2.301.520</b></td><td class='n'>3.8</td><td></td></tr>
+<tr><td>2-oct</td><td class='n'>$215.685</td><td class='n'>$1.590.900</td><td class='n'>$965.300</td><td class='n'><b>$2.556.200</b></td><td class='n'>7.4</td><td></td></tr>
+<tr><td>3-oct</td><td class='n'>$223.427</td><td class='n'>$295.500</td><td class='n'>$2.124.630</td><td class='n'><b>$2.420.130</b></td><td class='n'>1.3</td><td></td></tr>
+<tr><td>4-oct</td><td class='n'>$271.830</td><td class='n'>$272.700</td><td class='n'>$0</td><td class='n'><b>$272.700</b></td><td class='n'>1.0</td><td></td></tr>
+<tr><td>5-oct</td><td class='n'>$287.185</td><td class='n'>$1.036.800</td><td class='n'>$1.129.140</td><td class='n'><b>$2.165.940</b></td><td class='n'>3.6</td><td>Escalado</td></tr>
+<tr><td>6-oct</td><td class='n'>$345.996</td><td class='n'>$1.638.300</td><td class='n'>$2.200.190</td><td class='n'><b>$3.838.490</b></td><td class='n'>4.7</td><td></td></tr>
+<tr><td>7-oct</td><td class='n'>$365.553</td><td class='n'>$1.944.600</td><td class='n'>$2.421.600</td><td class='n'><b>$4.366.200</b></td><td class='n'>5.3</td><td>Extensión anunciada</td></tr>
+<tr><td>8-oct</td><td class='n'>$355.212</td><td class='n'>$2.243.700</td><td class='n'>$1.097.100</td><td class='n'><b>$3.340.800</b></td><td class='n'>6.3</td><td>Presupuesto hasta $450.000</td></tr>
+<tr><td>9-oct</td><td class='n'>$232.037</td><td class='n'>$988.500</td><td class='n'>$1.072.300</td><td class='n'><b>$2.060.800</b></td><td class='n'>4.3</td><td></td></tr>
+</tbody></table></div>
+
+<h2>Dónde estuvo el impacto</h2>
+<div class="cifras">
+  <div class="cifra">
+    <h3>1. La lista</h3>
+    <p>En el Pre-Cyber, 6 días con <b>$422.185</b> en Meta y una tienda que vendió <b>$24.456.545</b>. 72 de las 93 órdenes web no pasaron por ningún anuncio: llegaron por el correo y el grupo de WhatsApp.</p>
+    <p>«Acceso lista» gastó $70.364 (unos $11.700 al día) y trajo 21 compras, 54 pagos iniciados. La captación de septiembre costó $213.383.</p>
+  </div>
+  <div class="cifra">
+    <h3>2. Subir el gasto vendió menos por peso</h3>
+    <p>Cyber, días con menos de $260.000 (5 días, promedio $231.495): <b>$1.150.512</b> web al día, <b>$4.97</b> por cada $1.</p>
+    <p>Días de $260.000 o más (5 días, promedio $325.155): $1.427.220 web al día, <b>$4.39</b> por cada $1 ($4.12 sin el 7-oct, que tuvo la extensión anunciada). La visita pasó de $445 a $526 a entre $582 y $1.025.</p>
+  </div>
+  <div class="cifra">
+    <h3>3. Aperturas, cierres y urgencia</h3>
+    <p>Los 4 días más altos: 24-sep (apertura del Pre-Cyber, $10,3 M), 30-sep (apertura del Cyber, $7,0 M), 29-sep (cierre del Pre-Cyber, $4,9 M) y 7-oct (extensión, $4,4 M).</p>
+    <p>El 6 y el 8-oct, con un gasto parecido al del 7-oct, vendieron menos: la urgencia vendió, el gasto solo no.</p>
+  </div>
+  <div class="cifra">
+    <h3>4. Qué anuncios compran</h3>
+    <p>Ganan los videos con historia («Esta es mi mamá», «Compilado 1 · ¿Te dolió?») y las imágenes de rostro, brazos y piernas con precio de una zona.</p>
+    <p>Pierden axilas ($285.673 por 2 compras) y glúteos ($146.849 por 2). El calentamiento en video del Pre-Cyber gastó $54.549 sin una compra.</p>
+  </div>
+</div>
+
+<h2>Campañas por etapa</h2>
+<div class="tabla"><table>
+<thead><tr><th>Etapa</th><th>Campaña</th><th class="n">Gasto</th><th class="n">Compras (7 días clic)</th><th class="n">Valor que informa Meta</th><th class="n">Costo por compra</th></tr></thead>
+<tbody>
+<tr><td>Captación de la lista</td><td>AON WEB · 7 Ángulos + CN</td><td class='n'>$668.343</td><td class='n'>1</td><td class='n'>$56.100</td><td class='n'>$668.343</td></tr>
+<tr><td>Captación de la lista</td><td>WhatsApp · cliente nuevo</td><td class='n'>$410.028</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Captación de la lista</td><td>WhatsApp · AON</td><td class='n'>$399.677</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Captación de la lista</td><td>Lista Pre-Cyber (captación)</td><td class='n'>$194.428</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Pre-Cyber</td><td>AON WEB · 7 Ángulos + CN</td><td class='n'>$99.808</td><td class='n'>13</td><td class='n'>$2.624.130</td><td class='n'>$7.678</td></tr>
+<tr><td>Pre-Cyber</td><td>WhatsApp · cliente nuevo</td><td class='n'>$88.005</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Pre-Cyber</td><td>Pre-Cyber · Acceso lista · ventas web</td><td class='n'>$70.364</td><td class='n'>21</td><td class='n'>$3.370.140</td><td class='n'>$3.351</td></tr>
+<tr><td>Pre-Cyber</td><td>WhatsApp · AON</td><td class='n'>$68.137</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Pre-Cyber</td><td>Pre-Cyber · Calentamiento en video</td><td class='n'>$54.549</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+<tr><td>Cyber</td><td>Cyber · Ventas web · Depilación</td><td class='n'>$2.693.393</td><td class='n'>47</td><td class='n'>$6.495.250</td><td class='n'>$57.306</td></tr>
+<tr><td>Cyber</td><td>WhatsApp · cliente nuevo</td><td class='n'>$75.385</td><td class='n'>0</td><td class='n'>—</td><td class='n'>—</td></tr>
+</tbody></table></div>
+<p class="nota">«Valor que informa Meta» es lo que Meta atribuye a sus anuncios; la tienda vendió más porque incluye el correo, el grupo de WhatsApp y el local.</p>
+
+<h2>Anuncios del Cyber, del más barato por compra al más caro</h2>
+<div class="tabla"><table>
+<thead><tr><th>Anuncio del Cyber (gasto desde $50.000)</th><th class="n">Gasto</th><th class="n">Compras (7 días clic)</th><th class="n">Costo por compra</th><th class="n">Carros</th><th class="n">Pagos iniciados</th><th class="n">CTR</th></tr></thead>
+<tbody>
+<tr><td>Imagen · Rostro completo mujer 6 sesiones</td><td class='n'>$148.529</td><td class='n'>8</td><td class='n'>$18.566</td><td class='n'>16</td><td class='n'>9</td><td class='n'>1.05%</td></tr>
+<tr><td>Video · Compilado 1 · ¿Te dolió?</td><td class='n'>$56.606</td><td class='n'>3</td><td class='n'>$18.869</td><td class='n'>6</td><td class='n'>9</td><td class='n'>1.66%</td></tr>
+<tr><td>Imagen · Rostro completo hombre 8 sesiones</td><td class='n'>$58.402</td><td class='n'>3</td><td class='n'>$19.467</td><td class='n'>9</td><td class='n'>5</td><td class='n'>0.60%</td></tr>
+<tr><td>Video · Esta es mi mamá</td><td class='n'>$199.196</td><td class='n'>6</td><td class='n'>$33.199</td><td class='n'>67</td><td class='n'>37</td><td class='n'>1.58%</td></tr>
+<tr><td>Imagen · Brazos completos 6 sesiones</td><td class='n'>$176.673</td><td class='n'>5</td><td class='n'>$35.335</td><td class='n'>19</td><td class='n'>6</td><td class='n'>0.96%</td></tr>
+<tr><td>Imagen · 70% todas las zonas · texto</td><td class='n'>$88.838</td><td class='n'>2</td><td class='n'>$44.419</td><td class='n'>7</td><td class='n'>5</td><td class='n'>0.83%</td></tr>
+<tr><td>Imagen · Tibias · 70% todas las zonas</td><td class='n'>$200.152</td><td class='n'>4</td><td class='n'>$50.038</td><td class='n'>11</td><td class='n'>5</td><td class='n'>0.66%</td></tr>
+<tr><td>Video · Manípulo mágico</td><td class='n'>$52.570</td><td class='n'>1</td><td class='n'>$52.570</td><td class='n'>7</td><td class='n'>1</td><td class='n'>0.72%</td></tr>
+<tr><td>Video · Compilado 2 · Atención y confianza</td><td class='n'>$158.426</td><td class='n'>3</td><td class='n'>$52.809</td><td class='n'>15</td><td class='n'>13</td><td class='n'>1.18%</td></tr>
+<tr><td>Video · Lo barato sale caro</td><td class='n'>$52.821</td><td class='n'>1</td><td class='n'>$52.821</td><td class='n'>5</td><td class='n'>4</td><td class='n'>2.14%</td></tr>
+<tr><td>Imagen · Glúteos 6 sesiones</td><td class='n'>$146.849</td><td class='n'>2</td><td class='n'>$73.424</td><td class='n'>9</td><td class='n'>8</td><td class='n'>0.76%</td></tr>
+<tr><td>Video · La atropellada</td><td class='n'>$91.080</td><td class='n'>1</td><td class='n'>$91.080</td><td class='n'>9</td><td class='n'>9</td><td class='n'>0.97%</td></tr>
+<tr><td>Imagen · Axilas 6 sesiones</td><td class='n'>$285.673</td><td class='n'>2</td><td class='n'>$142.836</td><td class='n'>18</td><td class='n'>14</td><td class='n'>0.68%</td></tr>
+<tr><td>Video · React 3 tipos de láser</td><td class='n'>$65.459</td><td class='n'>0</td><td class='n'>—</td><td class='n'>5</td><td class='n'>1</td><td class='n'>1.25%</td></tr>
+<tr><td>Video · Compilado Romi 1 · Me atreví</td><td class='n'>$53.098</td><td class='n'>0</td><td class='n'>—</td><td class='n'>3</td><td class='n'>2</td><td class='n'>1.52%</td></tr>
+</tbody></table></div>
+
+<section class="decidir" style="margin-top:36px">
+  <h2>Lo que cambia en el Pre-Black y el Black</h2>
+  <ul>
+    <li><b>Lista primero, pero con gráficas nuevas.</b> La lista fue lo que más retornó. Hoy el costo por inscrita sube: $332 el 29-oct, $1.259 el 2-nov (Meta, 15:14). Antes de subir plata hay que renovar gráficas.</li>
+    <li><b>Pre-Black chico.</b> La audiencia es solo la lista y sus visitas: en el Pre-Cyber absorbió $11.700 al día. Más plata se satura.</li>
+    <li><b>Black con base de unos $250.000 al día.</b> Es donde la visita costó $445 a $526 y cada $1 trajo $4,97 en web. Los picos del 27 y el 30 suben más; lo que pase de ahí solo con señal.</li>
+    <li><b>Peso a los ganadores</b> y tope a axilas y glúteos. No repetir el calentamiento en video.</li>
+    <li><b>La extensión se anuncia, no se compra.</b> El 7 de octubre vendió por la urgencia.</li>
+  </ul>
+</section>
+
+<footer>
+  Fuentes: Meta Ads (cuenta de Kyest, insights diarios por campaña y por anuncio, 29-jul al 26-oct) y Shopify (órdenes pagadas, web y local), en el archivo de datos del 27 de octubre; MailerLite; Meta del 2 de noviembre a las 15:14 para la lista de hoy. Solo lectura.
+</footer>
+</main>
+</body>
+</html>

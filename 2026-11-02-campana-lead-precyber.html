@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex, nofollow">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Campaña de lead del Pre-Cyber · Kyest</title>
+<style>
+  :root {
+    --crema: #f8f4f1;
+    --tinta: #1b1417;
+    --suave: #5d5258;
+    --linea: #e4dad6;
+    --rosa: #c23a8c;
+    --rosa-claro: #f6e3ee;
+    --negro: #15101a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { margin-bottom: 28px; }
+  .etiqueta { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--rosa); font-weight: 600; margin: 0 0 6px; }
+  h1 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1.1; margin: 0 0 8px; }
+  .sub { color: var(--suave); margin: 0; }
+  h2 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 26px; margin: 40px 0 12px; break-after: avoid; }
+  p { margin: 0 0 10px; }
+
+  .totales { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  .total { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 16px; break-inside: avoid; }
+  .total b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .total span { font-size: 14px; color: var(--suave); }
+  .total.grande { background: var(--negro); border-color: var(--negro); color: #fff; }
+  .total.grande span { color: #d9ccd4; }
+  .nota { font-size: 14px; color: var(--suave); }
+
+  .tabla { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; font-size: 15.5px; }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--linea); }
+  th { background: var(--rosa-claro); font-weight: 600; font-size: 14px; }
+  tr:last-child td { border-bottom: 0; }
+  tr { break-inside: avoid; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tfoot td { font-weight: 700; background: #faf6f4; }
+  .semana { font-weight: 600; white-space: nowrap; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 14px; }
+
+  .tarjetas { display: grid; gap: 12px; }
+  .tarjeta { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .tarjeta h3 { color: var(--tinta); }
+  .tarjeta .monto { color: var(--rosa); }
+  .tarjeta h3 { margin: 0 0 4px; font-size: 17px; }
+  .tarjeta .monto { float: right; font-variant-numeric: tabular-nums; font-weight: 700; margin-left: 12px; }
+  .tarjeta p { margin: 0 0 4px; font-size: 15.5px; }
+  .tarjeta p.q { color: var(--suave); }
+
+  .cifras { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cifra { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .cifra h3 { margin: 0 0 6px; font-size: 16px; }
+  .cifra p { font-size: 15.5px; }
+
+  .decidir { background: var(--negro); color: #fff; border-radius: 12px; padding: 22px 24px; break-inside: avoid; }
+  .decidir h2 { color: #fff; margin: 0 0 10px; }
+  .decidir ul { margin: 0; padding-left: 20px; }
+  .decidir li { margin-bottom: 10px; }
+  .decidir b { color: #f6b9de; }
+
+  ul.reglas { margin: 0; padding-left: 20px; }
+  ul.reglas li { margin-bottom: 6px; }
+  footer { margin-top: 36px; font-size: 13.5px; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 14px; }
+
+
+  .leyenda { font-size: 14px; color: var(--suave); }
+  .chip { display: inline-block; padding: 2px 10px; border-radius: 999px; margin-right: 6px; font-size: 13px; font-weight: 600; }
+  .chip.l, .dia.l { background: var(--rosa-claro); color: var(--tinta); }
+  .chip.p, .dia.p { background: #e9a9cf; color: var(--tinta); }
+  .chip.b, .dia.b { background: var(--negro); color: #fff; }
+  .cal { background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+  .cab, .sem { display: grid; grid-template-columns: repeat(7, 1fr) 1.15fr; }
+  .cab span { padding: 8px 10px; font-size: 13px; font-weight: 600; background: #faf6f4; border-bottom: 1px solid var(--linea); }
+  .sem { border-bottom: 1px solid var(--linea); break-inside: avoid; }
+  .dia { padding: 8px 10px; min-height: 96px; display: flex; flex-direction: column; gap: 2px; border-right: 1px solid rgba(255,255,255,.6); }
+  .dia .dsem { display: none; }
+  .dia .num { font-size: 15px; }
+  .dia .mon { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .dia .nota { font-size: 12.5px; line-height: 1.3; opacity: .9; }
+  .dia.vacio { background: #faf6f4; }
+  .dia.hoy { background: #fff; border: 2px dashed var(--rosa); }
+  .dia.totsem { background: #faf6f4; color: var(--tinta); border-right: 0; justify-content: center; }
+  .dia.totsem .etq { font-size: 13px; color: var(--suave); }
+  .dia.totsem .mon { font-size: 17px; }
+  .pie { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--negro); color: #fff; font-size: 17px; }
+  @media (max-width: 760px) {
+    .cab { display: none; }
+    .sem { grid-template-columns: 1fr; }
+    .dia { min-height: 0; flex-direction: row; align-items: baseline; gap: 10px; padding: 8px 12px; }
+    .dia .dsem { display: inline; font-size: 13px; width: 34px; }
+    .dia .num { width: 24px; }
+    .dia.vacio { display: none; }
+    .dia.totsem { flex-direction: row; justify-content: space-between; align-items: baseline; }
+    .dia.totsem .dsem { display: none; }
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: 32px; }
+    .totales { grid-template-columns: repeat(2, 1fr); }
+    .cifras { grid-template-columns: 1fr; }
+    table { font-size: 14px; }
+    th, td { padding: 8px 8px; }
+  }
+  @media print {
+    body { background: #fff; font-size: 14px; }
+    main { padding: 0; }
+    h2 { margin-top: 24px; }
+    .tarjeta, .cifra, .total, .decidir, tr { break-inside: avoid; }
+  }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sw { width: 22px; height: 0; border-top: 3px solid; display: inline-block; }
+  .tl-ctl .sw.punt { border-top-style: dashed; }
+  .tl-ctl .sw.barra { height: 10px; border: 0; background: var(--rosa); width: 14px; border-radius: 2px; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+</style>
+</head>
+<body>
+<main>
+<header>
+  <p class="etiqueta">Kyest · Black Friday 2026</p>
+  <h1>Campaña de lead del Pre-Cyber</h1>
+  <p class="sub">«EVENTO WEB · Lista Pre-Cyber | 01.09»: la campaña que llenó la lista antes del Pre-Cyber. Del 1 al 29 de septiembre de 2026.</p>
+  <p class="nav"><a href="2026-11-02-historico-precyber-cyber-kyest.html">Histórico completo</a> · <a href="2026-11-02-plan-presupuesto-noviembre-sissy.html">Plan de presupuesto</a></p>
+</header>
+
+<section>
+  <div class="totales">
+    <div class="total grande"><b>$213.383</b><span>Gasto en Meta</span></div>
+    <div class="total"><b>259</b><span>Leads (formulario)</span></div>
+    <div class="total"><b>$824</b><span>Costo por lead</span></div>
+    <div class="total"><b>$13.154</b><span>Gasto máximo en un día</span></div>
+  </div>
+</section>
+
+<h2>Día por día</h2>
+<svg viewBox="0 0 940 364" role="img" aria-label="Campaña de lead del Pre-Cyber: leads, costo por lead y gasto por día" class="graf"><text x="64" y="10" font-size="12" font-weight="600" fill="#5d5258">Leads por día (Meta)</text><line x1="64" x2="930" y1="110.0" y2="110.0" stroke="#e4dad6"/><text x="58" y="114.0" text-anchor="end" font-size="11" fill="#5d5258">0</text><line x1="64" x2="930" y1="74.6" y2="74.6" stroke="#e4dad6"/><text x="58" y="78.6" text-anchor="end" font-size="11" fill="#5d5258">10</text><line x1="64" x2="930" y1="39.2" y2="39.2" stroke="#e4dad6"/><text x="58" y="43.2" text-anchor="end" font-size="11" fill="#5d5258">20</text><rect x="65.0" y="102.9" width="27.9" height="7.1" fill="#c23a8c"/><rect x="94.9" y="88.8" width="27.9" height="21.2" fill="#c23a8c"/><rect x="124.7" y="95.8" width="27.9" height="14.2" fill="#c23a8c"/><rect x="154.6" y="81.7" width="27.9" height="28.3" fill="#c23a8c"/><rect x="184.4" y="95.8" width="27.9" height="14.2" fill="#c23a8c"/><rect x="214.3" y="102.9" width="27.9" height="7.1" fill="#c23a8c"/><rect x="244.2" y="95.8" width="27.9" height="14.2" fill="#c23a8c"/><rect x="274.0" y="95.8" width="27.9" height="14.2" fill="#c23a8c"/><rect x="303.9" y="92.3" width="27.9" height="17.7" fill="#c23a8c"/><rect x="333.8" y="81.7" width="27.9" height="28.3" fill="#c23a8c"/><rect x="363.6" y="67.5" width="27.9" height="42.5" fill="#c23a8c"/><rect x="393.5" y="85.2" width="27.9" height="24.8" fill="#c23a8c"/><rect x="423.3" y="78.2" width="27.9" height="31.8" fill="#c23a8c"/><rect x="453.2" y="88.8" width="27.9" height="21.2" fill="#c23a8c"/><rect x="483.1" y="85.2" width="27.9" height="24.8" fill="#c23a8c"/><rect x="512.9" y="64.0" width="27.9" height="46.0" fill="#c23a8c"/><rect x="542.8" y="88.8" width="27.9" height="21.2" fill="#c23a8c"/><rect x="572.7" y="95.8" width="27.9" height="14.2" fill="#c23a8c"/><rect x="602.5" y="49.8" width="27.9" height="60.2" fill="#c23a8c"/><rect x="632.4" y="49.8" width="27.9" height="60.2" fill="#c23a8c"/><rect x="662.2" y="35.7" width="27.9" height="74.3" fill="#c23a8c"/><rect x="692.1" y="35.7" width="27.9" height="74.3" fill="#c23a8c"/><rect x="722.0" y="18.0" width="27.9" height="92.0" fill="#c23a8c"/><rect x="751.8" y="99.4" width="27.9" height="10.6" fill="#c23a8c"/><rect x="781.7" y="99.4" width="27.9" height="10.6" fill="#c23a8c"/><rect x="811.6" y="78.2" width="27.9" height="31.8" fill="#c23a8c"/><rect x="841.4" y="67.5" width="27.9" height="42.5" fill="#c23a8c"/><rect x="871.3" y="67.5" width="27.9" height="42.5" fill="#c23a8c"/><rect x="901.1" y="85.2" width="27.9" height="24.8" fill="#c23a8c"/><text x="64" y="120" font-size="12" font-weight="600" fill="#5d5258">Costo por lead por día (tope del gráfico $3.000)</text><line x1="64" x2="930" y1="220.0" y2="220.0" stroke="#e4dad6"/><text x="58" y="224.0" text-anchor="end" font-size="11" fill="#5d5258">$0</text><line x1="64" x2="930" y1="189.3" y2="189.3" stroke="#e4dad6"/><text x="58" y="193.3" text-anchor="end" font-size="11" fill="#5d5258">$1.000</text><line x1="64" x2="930" y1="158.7" y2="158.7" stroke="#e4dad6"/><text x="58" y="162.7" text-anchor="end" font-size="11" fill="#5d5258">$2.000</text><line x1="64" x2="930" y1="128.0" y2="128.0" stroke="#e4dad6"/><text x="58" y="132.0" text-anchor="end" font-size="11" fill="#5d5258">$3.000</text><rect x="65.0" y="182.0" width="27.9" height="38.0" fill="#8f8389"/><rect x="94.9" y="206.9" width="27.9" height="13.1" fill="#8f8389"/><rect x="124.7" y="197.6" width="27.9" height="22.4" fill="#8f8389"/><rect x="154.6" y="199.6" width="27.9" height="20.4" fill="#8f8389"/><rect x="184.4" y="177.2" width="27.9" height="42.8" fill="#8f8389"/><rect x="214.3" y="129.6" width="27.9" height="90.4" fill="#8f8389"/><rect x="244.2" y="142.2" width="27.9" height="77.8" fill="#8f8389"/><rect x="274.0" y="176.1" width="27.9" height="43.9" fill="#8f8389"/><rect x="303.9" y="164.4" width="27.9" height="55.6" fill="#8f8389"/><rect x="333.8" y="185.0" width="27.9" height="35.0" fill="#8f8389"/><rect x="363.6" y="192.0" width="27.9" height="28.0" fill="#8f8389"/><rect x="393.5" y="185.3" width="27.9" height="34.7" fill="#8f8389"/><rect x="423.3" y="182.3" width="27.9" height="37.7" fill="#8f8389"/><rect x="453.2" y="178.8" width="27.9" height="41.2" fill="#8f8389"/><rect x="483.1" y="176.0" width="27.9" height="44.0" fill="#8f8389"/><rect x="512.9" y="194.3" width="27.9" height="25.7" fill="#8f8389"/><rect x="542.8" y="174.9" width="27.9" height="45.1" fill="#8f8389"/><rect x="572.7" y="148.8" width="27.9" height="71.2" fill="#8f8389"/><rect x="602.5" y="198.8" width="27.9" height="21.2" fill="#8f8389"/><rect x="632.4" y="200.0" width="27.9" height="20.0" fill="#8f8389"/><rect x="662.2" y="203.6" width="27.9" height="16.4" fill="#8f8389"/><rect x="692.1" y="200.8" width="27.9" height="19.2" fill="#8f8389"/><rect x="722.0" y="206.7" width="27.9" height="13.3" fill="#8f8389"/><rect x="781.7" y="195.0" width="27.9" height="25.0" fill="#8f8389"/><rect x="811.6" y="207.2" width="27.9" height="12.8" fill="#8f8389"/><rect x="841.4" y="207.6" width="27.9" height="12.4" fill="#8f8389"/><rect x="871.3" y="204.8" width="27.9" height="15.2" fill="#8f8389"/><rect x="901.1" y="211.4" width="27.9" height="8.6" fill="#8f8389"/><text x="64" y="230" font-size="12" font-weight="600" fill="#5d5258">Gasto por día</text><line x1="64" x2="930" y1="330.0" y2="330.0" stroke="#e4dad6"/><text x="58" y="334.0" text-anchor="end" font-size="11" fill="#5d5258">0 mil</text><line x1="64" x2="930" y1="295.0" y2="295.0" stroke="#e4dad6"/><text x="58" y="299.0" text-anchor="end" font-size="11" fill="#5d5258">5 mil</text><line x1="64" x2="930" y1="260.1" y2="260.1" stroke="#e4dad6"/><text x="58" y="264.1" text-anchor="end" font-size="11" fill="#5d5258">10 mil</text><rect x="65.0" y="312.7" width="27.9" height="17.3" fill="#15101a"/><rect x="94.9" y="312.1" width="27.9" height="17.9" fill="#15101a"/><rect x="124.7" y="309.5" width="27.9" height="20.5" fill="#15101a"/><rect x="154.6" y="292.8" width="27.9" height="37.2" fill="#15101a"/><rect x="184.4" y="290.9" width="27.9" height="39.1" fill="#15101a"/><rect x="214.3" y="288.8" width="27.9" height="41.2" fill="#15101a"/><rect x="244.2" y="259.1" width="27.9" height="70.9" fill="#15101a"/><rect x="274.0" y="289.9" width="27.9" height="40.1" fill="#15101a"/><rect x="303.9" y="266.6" width="27.9" height="63.4" fill="#15101a"/><rect x="333.8" y="266.2" width="27.9" height="63.8" fill="#15101a"/><rect x="363.6" y="253.4" width="27.9" height="76.6" fill="#15101a"/><rect x="393.5" y="274.6" width="27.9" height="55.4" fill="#15101a"/><rect x="423.3" y="252.6" width="27.9" height="77.4" fill="#15101a"/><rect x="453.2" y="273.6" width="27.9" height="56.4" fill="#15101a"/><rect x="483.1" y="259.7" width="27.9" height="70.3" fill="#15101a"/><rect x="512.9" y="253.8" width="27.9" height="76.2" fill="#15101a"/><rect x="542.8" y="268.3" width="27.9" height="61.7" fill="#15101a"/><rect x="572.7" y="265.0" width="27.9" height="65.0" fill="#15101a"/><rect x="602.5" y="247.7" width="27.9" height="82.3" fill="#15101a"/><rect x="632.4" y="252.6" width="27.9" height="77.4" fill="#15101a"/><rect x="662.2" y="251.5" width="27.9" height="78.5" fill="#15101a"/><rect x="692.1" y="238.0" width="27.9" height="92.0" fill="#15101a"/><rect x="722.0" y="251.0" width="27.9" height="79.0" fill="#15101a"/><rect x="781.7" y="312.9" width="27.9" height="17.1" fill="#15101a"/><rect x="811.6" y="303.8" width="27.9" height="26.2" fill="#15101a"/><rect x="841.4" y="296.0" width="27.9" height="34.0" fill="#15101a"/><rect x="871.3" y="288.4" width="27.9" height="41.6" fill="#15101a"/><rect x="901.1" y="316.3" width="27.9" height="13.7" fill="#15101a"/><text x="78.9" y="356" text-anchor="middle" font-size="11" fill="#5d5258">1-sep</text><text x="288.0" y="356" text-anchor="middle" font-size="11" fill="#5d5258">8-sep</text><text x="497.0" y="356" text-anchor="middle" font-size="11" fill="#5d5258">15-sep</text><text x="706.0" y="356" text-anchor="middle" font-size="11" fill="#5d5258">22-sep</text><text x="915.1" y="356" text-anchor="middle" font-size="11" fill="#5d5258">29-sep</text></svg>
+<p class="nota">Lead: formulario enviado, según Meta. Las altas de MailerLite incluyen todas las fuentes, por eso son más que los leads de Meta.</p>
+
+<h2>Por semana</h2>
+<div class="tabla"><table>
+<thead><tr><th>Semana</th><th class="n">Gasto</th><th class="n">Leads</th><th class="n">Costo por lead</th><th class="n">Gasto al día</th><th class="n">Altas en MailerLite</th></tr></thead>
+<tbody>
+<tr><td>1 al 7 sep</td><td class='n'>$34.911</td><td class='n'>30</td><td class='n'>$1.164</td><td class='n'>$4.987</td><td class='n'>27</td></tr>
+<tr><td>8 al 14 sep</td><td class='n'>$61.935</td><td class='n'>51</td><td class='n'>$1.214</td><td class='n'>$8.848</td><td class='n'>64</td></tr>
+<tr><td>15 al 21 sep</td><td class='n'>$73.134</td><td class='n'>85</td><td class='n'>$860</td><td class='n'>$10.448</td><td class='n'>48</td></tr>
+<tr><td>22 al 29 sep</td><td class='n'>$43.403</td><td class='n'>93</td><td class='n'>$467</td><td class='n'>$5.425</td><td class='n'>74</td></tr>
+<tr><td><b>Total</b></td><td class='n'><b>$213.383</b></td><td class='n'><b>259</b></td><td class='n'><b>$824</b></td><td class='n'>$7.358</td><td class='n'>213</td></tr></tbody></table></div>
+
+<section class="decidir" style="margin-top:36px">
+  <h2>Qué dice para la Lista Black</h2>
+  <ul>
+    <li><b>Nunca pasó de $13.154 al día.</b> Todo lo que sabemos de captar con esta campaña es hasta ese nivel, con un máximo de 26 leads en un día.</li>
+    <li><b>El costo bajó al acercarse la apertura.</b> Las dos primeras semanas costó cerca de $1.200 por lead. Del 19 al 23-sep, con $11.000 a $13.000 al día, costó entre $434 y $692 por lead y trajo de 17 a 26 al día.</li>
+    <li><b>Hoy la Lista Black va al revés.</b> Partió en $332 por lead el 29-oct y llegó a $1.259 el 2-nov, de 25 a 7 leads al día. Meta la termina el 15-nov a las 00:00.</li>
+    <li><b>El plan sube la lista a $50.000 al día el 12 al 14.</b> Es casi cuatro veces lo máximo probado. Lo prudente es subir de a 20% y solo mientras el costo por lead se mantenga bajo $930, y sacar el resto de la reserva.</li>
+  </ul>
+</section>
+
+<h2>Todos los días</h2>
+<div class="tabla"><table>
+<thead><tr><th>Día</th><th class="n">Gasto</th><th class="n">Leads</th><th class="n">Costo por lead</th><th class="n">Altas en MailerLite</th></tr></thead>
+<tbody>
+<tr><td>1-sep</td><td class='n'>$2.479</td><td class='n'>2</td><td class='n'>$1.240</td><td class='n'>1</td></tr>
+<tr><td>2-sep</td><td class='n'>$2.563</td><td class='n'>6</td><td class='n'>$427</td><td class='n'>2</td></tr>
+<tr><td>3-sep</td><td class='n'>$2.926</td><td class='n'>4</td><td class='n'>$732</td><td class='n'>6</td></tr>
+<tr><td>4-sep</td><td class='n'>$5.322</td><td class='n'>8</td><td class='n'>$665</td><td class='n'>6</td></tr>
+<tr><td>5-sep</td><td class='n'>$5.586</td><td class='n'>4</td><td class='n'>$1.396</td><td class='n'>3</td></tr>
+<tr><td>6-sep</td><td class='n'>$5.893</td><td class='n'>2</td><td class='n'>$2.946</td><td class='n'>2</td></tr>
+<tr><td>7-sep</td><td class='n'>$10.142</td><td class='n'>4</td><td class='n'>$2.536</td><td class='n'>7</td></tr>
+<tr><td>8-sep</td><td class='n'>$5.728</td><td class='n'>4</td><td class='n'>$1.432</td><td class='n'>5</td></tr>
+<tr><td>9-sep</td><td class='n'>$9.063</td><td class='n'>5</td><td class='n'>$1.813</td><td class='n'>8</td></tr>
+<tr><td>10-sep</td><td class='n'>$9.129</td><td class='n'>8</td><td class='n'>$1.141</td><td class='n'>6</td></tr>
+<tr><td>11-sep</td><td class='n'>$10.949</td><td class='n'>12</td><td class='n'>$912</td><td class='n'>11</td></tr>
+<tr><td>12-sep</td><td class='n'>$7.927</td><td class='n'>7</td><td class='n'>$1.132</td><td class='n'>10</td></tr>
+<tr><td>13-sep</td><td class='n'>$11.070</td><td class='n'>9</td><td class='n'>$1.230</td><td class='n'>9</td></tr>
+<tr><td>14-sep</td><td class='n'>$8.069</td><td class='n'>6</td><td class='n'>$1.345</td><td class='n'>15</td></tr>
+<tr><td>15-sep</td><td class='n'>$10.052</td><td class='n'>7</td><td class='n'>$1.436</td><td class='n'>8</td></tr>
+<tr><td>16-sep</td><td class='n'>$10.902</td><td class='n'>13</td><td class='n'>$839</td><td class='n'>5</td></tr>
+<tr><td>17-sep</td><td class='n'>$8.819</td><td class='n'>6</td><td class='n'>$1.470</td><td class='n'>4</td></tr>
+<tr><td>18-sep</td><td class='n'>$9.293</td><td class='n'>4</td><td class='n'>$2.323</td><td class='n'>1</td></tr>
+<tr><td>19-sep</td><td class='n'>$11.773</td><td class='n'>17</td><td class='n'>$693</td><td class='n'>8</td></tr>
+<tr><td>20-sep</td><td class='n'>$11.068</td><td class='n'>17</td><td class='n'>$651</td><td class='n'>4</td></tr>
+<tr><td>21-sep</td><td class='n'>$11.227</td><td class='n'>21</td><td class='n'>$535</td><td class='n'>18</td></tr>
+<tr><td>22-sep</td><td class='n'>$13.154</td><td class='n'>21</td><td class='n'>$626</td><td class='n'>22</td></tr>
+<tr><td>23-sep</td><td class='n'>$11.294</td><td class='n'>26</td><td class='n'>$434</td><td class='n'>11</td></tr>
+<tr><td>24-sep</td><td class='n'>$0</td><td class='n'>3</td><td class='n'>—</td><td class='n'>10</td></tr>
+<tr><td>25-sep</td><td class='n'>$2.442</td><td class='n'>3</td><td class='n'>$814</td><td class='n'>5</td></tr>
+<tr><td>26-sep</td><td class='n'>$3.752</td><td class='n'>9</td><td class='n'>$417</td><td class='n'>5</td></tr>
+<tr><td>27-sep</td><td class='n'>$4.858</td><td class='n'>12</td><td class='n'>$405</td><td class='n'>5</td></tr>
+<tr><td>28-sep</td><td class='n'>$5.944</td><td class='n'>12</td><td class='n'>$495</td><td class='n'>8</td></tr>
+<tr><td>29-sep</td><td class='n'>$1.959</td><td class='n'>7</td><td class='n'>$280</td><td class='n'>8</td></tr>
+</tbody></table></div>
+
+<footer>
+  Fuentes: Meta Ads (insights diarios de la campaña, solo lectura) y MailerLite, en el archivo de datos del 27 de octubre; Lista Black de hoy, Meta del 2 de noviembre a las 15:14.
+</footer>
+</main>
+</body>
+</html>

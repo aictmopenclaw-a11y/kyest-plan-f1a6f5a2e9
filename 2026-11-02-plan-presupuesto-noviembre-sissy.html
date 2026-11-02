@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta name="robots" content="noindex, nofollow">
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Presupuesto de noviembre · Kyest</title>
+<style>
+  :root {
+    --crema: #f8f4f1;
+    --tinta: #1b1417;
+    --suave: #5d5258;
+    --linea: #e4dad6;
+    --rosa: #c23a8c;
+    --rosa-claro: #f6e3ee;
+    --negro: #15101a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--crema);
+    color: var(--tinta);
+    font-family: "Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+  }
+  main { max-width: 980px; margin: 0 auto; padding: 40px 20px 64px; }
+  header { margin-bottom: 28px; }
+  .etiqueta { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: var(--rosa); font-weight: 600; margin: 0 0 6px; }
+  h1 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 40px; line-height: 1.1; margin: 0 0 8px; }
+  .sub { color: var(--suave); margin: 0; }
+  h2 { font-family: "Baskervville", Georgia, serif; font-weight: 500; font-size: 26px; margin: 40px 0 12px; break-after: avoid; }
+  p { margin: 0 0 10px; }
+
+  .totales { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin: 24px 0 8px; }
+  .total { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 16px; break-inside: avoid; }
+  .total b { display: block; font-size: 26px; font-variant-numeric: tabular-nums; }
+  .total span { font-size: 14px; color: var(--suave); }
+  .total.grande { background: var(--negro); border-color: var(--negro); color: #fff; }
+  .total.grande span { color: #d9ccd4; }
+  .nota { font-size: 14px; color: var(--suave); }
+
+  .tabla { overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; font-size: 15.5px; }
+  th, td { padding: 10px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--linea); }
+  th { background: var(--rosa-claro); font-weight: 600; font-size: 14px; }
+  tr:last-child td { border-bottom: 0; }
+  tr { break-inside: avoid; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  tfoot td { font-weight: 700; background: #faf6f4; }
+  .semana { font-weight: 600; white-space: nowrap; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 14px; }
+
+  .tarjetas { display: grid; gap: 12px; }
+  .tarjeta { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .tarjeta h3 { color: var(--tinta); }
+  .tarjeta .monto { color: var(--rosa); }
+  .tarjeta h3 { margin: 0 0 4px; font-size: 17px; }
+  .tarjeta .monto { float: right; font-variant-numeric: tabular-nums; font-weight: 700; margin-left: 12px; }
+  .tarjeta p { margin: 0 0 4px; font-size: 15.5px; }
+  .tarjeta p.q { color: var(--suave); }
+
+  .cifras { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .cifra { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 14px 18px; break-inside: avoid; }
+  .cifra h3 { margin: 0 0 6px; font-size: 16px; }
+  .cifra p { font-size: 15.5px; }
+
+  .decidir { background: var(--negro); color: #fff; border-radius: 12px; padding: 22px 24px; break-inside: avoid; }
+  .decidir h2 { color: #fff; margin: 0 0 10px; }
+  .decidir ul { margin: 0; padding-left: 20px; }
+  .decidir li { margin-bottom: 10px; }
+  .decidir b { color: #f6b9de; }
+
+  ul.reglas { margin: 0; padding-left: 20px; }
+  ul.reglas li { margin-bottom: 6px; }
+  footer { margin-top: 36px; font-size: 13.5px; color: var(--suave); border-top: 1px solid var(--linea); padding-top: 14px; }
+
+
+  .leyenda { font-size: 14px; color: var(--suave); }
+  .chip { display: inline-block; padding: 2px 10px; border-radius: 999px; margin-right: 6px; font-size: 13px; font-weight: 600; }
+  .chip.l, .dia.l { background: var(--rosa-claro); color: var(--tinta); }
+  .chip.p, .dia.p { background: #e9a9cf; color: var(--tinta); }
+  .chip.b, .dia.b { background: var(--negro); color: #fff; }
+  .cal { background: #fff; border: 1px solid var(--linea); border-radius: 10px; overflow: hidden; }
+  .cab, .sem { display: grid; grid-template-columns: repeat(7, 1fr) 1.15fr; }
+  .cab span { padding: 8px 10px; font-size: 13px; font-weight: 600; background: #faf6f4; border-bottom: 1px solid var(--linea); }
+  .sem { border-bottom: 1px solid var(--linea); break-inside: avoid; }
+  .dia { padding: 8px 10px; min-height: 96px; display: flex; flex-direction: column; gap: 2px; border-right: 1px solid rgba(255,255,255,.6); }
+  .dia .dsem { display: none; }
+  .dia .num { font-size: 15px; }
+  .dia .mon { font-size: 14px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .dia .nota { font-size: 12.5px; line-height: 1.3; opacity: .9; }
+  .dia.vacio { background: #faf6f4; }
+  .dia.hoy { background: #fff; border: 2px dashed var(--rosa); }
+  .dia.totsem { background: #faf6f4; color: var(--tinta); border-right: 0; justify-content: center; }
+  .dia.totsem .etq { font-size: 13px; color: var(--suave); }
+  .dia.totsem .mon { font-size: 17px; }
+  .pie { display: flex; justify-content: space-between; padding: 12px 16px; background: var(--negro); color: #fff; font-size: 17px; }
+  @media (max-width: 760px) {
+    .cab { display: none; }
+    .sem { grid-template-columns: 1fr; }
+    .dia { min-height: 0; flex-direction: row; align-items: baseline; gap: 10px; padding: 8px 12px; }
+    .dia .dsem { display: inline; font-size: 13px; width: 34px; }
+    .dia .num { width: 24px; }
+    .dia.vacio { display: none; }
+    .dia.totsem { flex-direction: row; justify-content: space-between; align-items: baseline; }
+    .dia.totsem .dsem { display: none; }
+  }
+  @media (max-width: 760px) {
+    h1 { font-size: 32px; }
+    .totales { grid-template-columns: repeat(2, 1fr); }
+    .cifras { grid-template-columns: 1fr; }
+    table { font-size: 14px; }
+    th, td { padding: 8px 8px; }
+  }
+  @media print {
+    body { background: #fff; font-size: 14px; }
+    main { padding: 0; }
+    h2 { margin-top: 24px; }
+    .tarjeta, .cifra, .total, .decidir, tr { break-inside: avoid; }
+  }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sw { width: 22px; height: 0; border-top: 3px solid; display: inline-block; }
+  .tl-ctl .sw.punt { border-top-style: dashed; }
+  .tl-ctl .sw.barra { height: 10px; border: 0; background: var(--rosa); width: 14px; border-radius: 2px; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+  .nav { font-size: 15px; margin: 6px 0 0; }
+  .nav a { color: var(--rosa); }
+  .graf { width: 100%; height: auto; background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 10px; }
+  .tabla { overflow-x: auto; }
+  .peq { display: block; font-weight: 400; color: var(--suave); font-size: 13px; }
+  tr.ok td:first-child { border-left: 0; }
+  .ganan { color: #1c6b34; font-weight: 600; }
+  .pierden { color: #9a2d2d; font-weight: 600; }
+  .pie2 { display: flex; justify-content: space-between; padding: 10px 16px; background: #faf6f4; border-top: 1px solid var(--linea); font-size: 15px; }
+  .tl { background: #fff; border: 1px solid var(--linea); border-radius: 10px; padding: 12px; }
+  .tl-ctl { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 10px; }
+  .tl-ctl label { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--linea); border-radius: 999px; padding: 4px 12px; font-size: 14px; cursor: pointer; background: #faf6f4; }
+  .tl-ctl input { accent-color: var(--rosa); }
+  .tl-ctl .sq { width: 14px; height: 12px; border-radius: 2px; display: inline-block; }
+  .tl svg { width: 100%; height: auto; display: block; }
+  .tl-read { min-height: 44px; margin: 8px 2px 0; font-size: 14px; color: var(--tinta); }
+  .tl-read b { font-variant-numeric: tabular-nums; }
+  .dist { display: flex; height: 34px; border-radius: 8px; overflow: hidden; border: 1px solid var(--linea); margin: 6px 0 8px; }
+  .dist span { display: block; height: 100%; }
+  .dist-leg { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 14px; margin-bottom: 16px; }
+  .dist-leg i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; margin-right: 6px; vertical-align: -1px; }
+  .dist-leg b { font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<main>
+
+<header>
+  <p class="etiqueta">Kyest · Black Friday 2026</p>
+  <h1>Presupuesto de noviembre</h1>
+  <p class="sub">Versión 4. Se apuesta más fuerte por el registro de la lista y por el Pre-Black, y menos por el Black, porque la lógica del Pre-Cyber y el Cyber se invirtió. Inversión en Meta Ads para depilación láser.</p>
+  <p class="nav"><a href="2026-11-02-historico-precyber-cyber-kyest.html">Histórico de donde salen los datos</a> · <a href="2026-11-02-campana-lead-precyber.html">Campaña de lead del Pre-Cyber</a></p>
+</header>
+
+<section>
+  <div class="totales">
+    <div class="total grande"><b>$5.000.000</b><span>Total de noviembre</span></div>
+    <div class="total"><b>$970.000</b><span>Lista, del 3 al 19</span></div>
+    <div class="total"><b>$500.000</b><span>Pre-Black, del 15 al 19</span></div>
+    <div class="total"><b>$1.810.000</b><span>Black, del 20 al 30</span></div>
+  </div>
+  <p class="nota">El total es todo lo que Meta gasta en depilación en el mes: lo ya gastado el 1 y 2 de noviembre ($85.215), la base de AON ($475.500), WhatsApp cliente nuevo ($392.000), las tres etapas del evento y una reserva de $767.285 que se libera solo con señal. Hasta nuevo OK, Meta trabaja con un tope de $30.000 al día en la lista; los montos mayores se confirman con cita. No incluye Sculpt Freeze.</p>
+</section>
+
+<h2>La lógica se invierte</h2>
+<div class="tabla"><table>
+<thead><tr><th></th><th class="n">Gasto en Meta</th><th class="n">Gasto al día</th><th class="n">Ventas de la tienda</th><th class="n">Ventas al día</th><th class="n">Ventas por cada $1</th></tr></thead>
+<tbody>
+<tr><td><b>Pre-Cyber</b> · 24 al 29 de septiembre</td><td class="n">$422.185</td><td class="n">$70.364</td><td class="n">$24,5 M</td><td class="n">$4,1 M</td><td class="n"><b>57,9×</b></td></tr>
+<tr><td><b>Cyber</b> · 30 de septiembre al 9 de octubre</td><td class="n">$2.783.253</td><td class="n">$278.325</td><td class="n">$30,3 M</td><td class="n">$3,0 M</td><td class="n"><b>10,9×</b></td></tr>
+</tbody></table></div>
+<p class="nota">En el Cyber se gastó cuatro veces más por día y se vendió menos por día. El primer día del Pre-Cyber vendió $10,3 M con $67.767 de gasto: la venta vino de la lista. Con el iPhone, las compras del Pre-Black valen doble en el sorteo: registrarse antes tiene un motivo más.</p>
+
+<h2>Lo conversado con Sissy</h2>
+<ul class="reglas">
+  <li><b>La lista es la apuesta.</b> Septiembre gastó $3,1 M en Meta y la tienda vendió $50,0 M (16×); octubre, hasta el 26, 9,2×. El mejor retorno fue la lista del Pre-Cyber.</li>
+  <li><b>Meta de inscritas: 1.200.</b> Alrededor de una de cada cuatro compra, así que 1.000 queda corto.</li>
+  <li><b>La lista sigue captando del 15 al 19.</b> Quien se inscribe en el Pre-Black entra a la lista al tiro. Hoy Meta la termina el 15 a las 00:00: hay que quitar ese término.</li>
+  <li><b>El domingo 15 y el lunes 16 son días fuertes</b>, aunque la subasta esté más cara: el día que se abre es de los que más venden.</li>
+  <li><b>Fuerte se mide por el retorno.</b> Un gasto es fuerte si el retorno real es de 10× o más. Si baja de 10×, se revisan anuncios, textos y landing.</li>
+  <li><b>Creativos profesionales para la lista del Black</b>, para que no se agoten los anuncios, y un video del iPhone para el Pre-Black.</li>
+  <li><b>Ofertas para seguir vendiendo mientras se calienta la audiencia.</b> Idea de Sissy: una promoción de onicomicosis. Ella prepara la oferta y Cristóbal la ejecuta.</li>
+</ul>
+
+<h2>Calendario semana por semana</h2>
+<p class="leyenda"><span class="chip l">Captar la lista</span><span class="chip p">Pre-Black</span><span class="chip b">Black</span> Cada día muestra el gasto total: las campañas de la etapa más la base de AON y WhatsApp cliente nuevo. Del 15 al 19 la lista sigue captando.</p>
+<div class="cal" role="table" aria-label="Calendario de inversión de noviembre">
+<div class="cab" role="row"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span><span class="cs">Semana</span></div>
+<div class="sem" role="row">
+<div class="dia hoy"><span class="dsem">Lun</span><b class="num">2</b><span class="mon">Hoy</span><span class="nota">Reunión con Sissy</span></div><div class="dia l"><span class="dsem">Mar</span><b class="num">3</b><span class="mon">$81.000</span></div><div class="dia l"><span class="dsem">Mié</span><b class="num">4</b><span class="mon">$81.000</span><span class="nota">Invitación a Depílate Gratis</span></div><div class="dia l"><span class="dsem">Jue</span><b class="num">5</b><span class="mon">$81.000</span></div><div class="dia l"><span class="dsem">Vie</span><b class="num">6</b><span class="mon">$81.000</span></div><div class="dia l"><span class="dsem">Sáb</span><b class="num">7</b><span class="mon">$81.000</span></div><div class="dia l"><span class="dsem">Dom</span><b class="num">8</b><span class="mon">$81.000</span></div><div class="dia totsem"><span class="dsem">Semana</span><span class="etq">3 al 8 nov</span><b class="mon">$486.000</b></div>
+</div>
+<div class="sem" role="row">
+<div class="dia l"><span class="dsem">Lun</span><b class="num">9</b><span class="mon">$101.000</span><span class="nota">Tienda privada en borrador</span></div><div class="dia l"><span class="dsem">Mar</span><b class="num">10</b><span class="mon">$101.000</span></div><div class="dia l"><span class="dsem">Mié</span><b class="num">11</b><span class="mon">$101.000</span><span class="nota">Depílate Gratis, 5ª edición</span></div><div class="dia l"><span class="dsem">Jue</span><b class="num">12</b><span class="mon">$141.000</span><span class="nota">Sube la captación. Prueba general</span></div><div class="dia l"><span class="dsem">Vie</span><b class="num">13</b><span class="mon">$141.000</span><span class="nota">Reunión con ventas</span></div><div class="dia l"><span class="dsem">Sáb</span><b class="num">14</b><span class="mon">$141.000</span><span class="nota">Último día antes del Pre-Black</span></div><div class="dia p"><span class="dsem">Dom</span><b class="num">15</b><span class="mon">$191.000</span><span class="nota">00:00 abre el Pre-Black. Día fuerte</span></div><div class="dia totsem"><span class="dsem">Semana</span><span class="etq">9 al 15 nov</span><b class="mon">$917.000</b></div>
+</div>
+<div class="sem" role="row">
+<div class="dia p"><span class="dsem">Lun</span><b class="num">16</b><span class="mon">$191.000</span><span class="nota">Día fuerte</span></div><div class="dia p"><span class="dsem">Mar</span><b class="num">17</b><span class="mon">$191.000</span><span class="nota">Primer corte de anuncios</span></div><div class="dia p"><span class="dsem">Mié</span><b class="num">18</b><span class="mon">$191.000</span></div><div class="dia p"><span class="dsem">Jue</span><b class="num">19</b><span class="mon">$191.000</span><span class="nota">Último día del Pre-Black</span></div><div class="dia b"><span class="dsem">Vie</span><b class="num">20</b><span class="mon">$145.500</span><span class="nota">Abre el Black a todo público</span></div><div class="dia b"><span class="dsem">Sáb</span><b class="num">21</b><span class="mon">$145.500</span></div><div class="dia b"><span class="dsem">Dom</span><b class="num">22</b><span class="mon">$145.500</span></div><div class="dia totsem"><span class="dsem">Semana</span><span class="etq">16 al 22 nov</span><b class="mon">$1.200.500</b></div>
+</div>
+<div class="sem" role="row">
+<div class="dia b"><span class="dsem">Lun</span><b class="num">23</b><span class="mon">$145.500</span></div><div class="dia b"><span class="dsem">Mar</span><b class="num">24</b><span class="mon">$145.500</span></div><div class="dia b"><span class="dsem">Mié</span><b class="num">25</b><span class="mon">$145.500</span></div><div class="dia b"><span class="dsem">Jue</span><b class="num">26</b><span class="mon">$145.500</span></div><div class="dia b"><span class="dsem">Vie</span><b class="num">27</b><span class="mon">$285.500</span><span class="nota">Black Friday</span></div><div class="dia b"><span class="dsem">Sáb</span><b class="num">28</b><span class="mon">$195.500</span><span class="nota">Se decide la extensión</span></div><div class="dia b"><span class="dsem">Dom</span><b class="num">29</b><span class="mon">$195.500</span></div><div class="dia totsem"><span class="dsem">Semana</span><span class="etq">23 al 29 nov</span><b class="mon">$1.258.500</b></div>
+</div>
+<div class="sem" role="row">
+<div class="dia b"><span class="dsem">Lun</span><b class="num">30</b><span class="mon">$285.500</span><span class="nota">Cierra el sorteo, 23:59</span></div><div class="dia vacio"></div><div class="dia vacio"></div><div class="dia vacio"></div><div class="dia vacio"></div><div class="dia vacio"></div><div class="dia vacio"></div><div class="dia totsem"><span class="dsem">Semana</span><span class="etq">30 nov</span><b class="mon">$285.500</b></div>
+</div>
+<div class="pie2"><span>Gastado el 1 y 2 de noviembre</span><b>$85.215</b></div>
+<div class="pie2"><span>Gasto planificado, 3 al 30 de noviembre</span><b>$4.147.500</b></div>
+<div class="pie2"><span>Reserva para empujar sobre la marcha, sin día asignado</span><b>$767.285</b></div>
+<div class="pie"><span>Total de noviembre</span><b>$5.000.000</b></div>
+</div>
+
+<p class="nota"><b>Qué es la reserva.</b> Es plata que no tiene día ni campaña asignados: la guardamos para empujar sobre la marcha durante el período. Cuando un anuncio o una etapa responde (buen costo por lead o por pago iniciado, buena conversión y retorno real de 10× o más), le sumamos presupuesto ese mismo día, sin esperar a rehacer el plan. Si nada responde, no se gasta.</p>
+<h2>Línea de tiempo: el plan contra lo que pasó antes</h2>
+<p>Cada día de noviembre (barra de color) se compara con el día equivalente del Pre-Cyber y el Cyber (barra gris). Abajo, lo que vendió la tienda ese día en el historial y la línea punteada con lo que tendría que vender cada día del plan para llegar a un retorno de 10×. Se puede encender y apagar cada cosa.</p>
+<h3 style="margin:18px 0 4px;font-size:17px">Cómo se reparte el $5.000.000</h3>
+<div class="dist" role="img" aria-label="Reparto del presupuesto de noviembre">
+  <span style="width:1.7%;background:#d9ccd4"></span><span style="width:19.4%;background:#e08ab8"></span><span style="width:10%;background:#c23a8c"></span><span style="width:36.2%;background:#15101a"></span><span style="width:17.4%;background:#8f8389"></span><span style="width:15.3%;background:repeating-linear-gradient(135deg,#c23a8c 0 6px,#f6e3ee 6px 12px)"></span>
+</div>
+<div class="dist-leg">
+  <span><i style="background:#d9ccd4"></i>Ya gastado 1 y 2 nov <b>$85.215</b></span>
+  <span><i style="background:#e08ab8"></i>Lista <b>$970.000</b> (19%)</span>
+  <span><i style="background:#c23a8c"></i>Pre-Black <b>$500.000</b> (10%)</span>
+  <span><i style="background:#15101a"></i>Black <b>$1.810.000</b> (36%)</span>
+  <span><i style="background:#8f8389"></i>Base de AON y WhatsApp <b>$867.500</b> (17%)</span>
+  <span><i style="background:repeating-linear-gradient(135deg,#c23a8c 0 4px,#f6e3ee 4px 8px)"></i>Reserva <b>$767.285</b> (15%)</span>
+</div>
+<div class="tl">
+  <div class="tl-ctl">
+    <label><input type="checkbox" data-k="plan" checked><span class="sq" style="background:linear-gradient(90deg,#e08ab8 33%,#c23a8c 33% 66%,#15101a 66%)"></span>Plan de noviembre</label>
+    <label><input type="checkbox" data-k="hg" checked><span class="sq" style="background:#9a9096"></span>Gasto de antes</label>
+    <label><input type="checkbox" data-k="hv" checked><span class="sq" style="background:#1c6b34"></span>Ventas de antes</label>
+    <label><input type="checkbox" data-k="m10" checked><span class="sq" style="background:repeating-linear-gradient(90deg,#1b1417 0 5px,#fff 5px 8px);border:1px solid #1b1417"></span>Venta necesaria para 10×</label>
+  </div>
+  <div id="tl-chart"></div>
+  <div class="tl-read" id="tl-read"></div>
+</div>
+<p class="nota">Pre-Cyber: gasto de $49.000 a $86.000 al día y ventas de $1,0 M a $10,3 M al día. Cyber: gasto de $216.000 a $366.000 al día y ventas de $0,3 M a $7,0 M al día. El plan pone la lista y el Pre-Black más arriba que antes y el Black en el rango donde cada peso rindió más. Los números pequeños bajo cada día son la fecha equivalente de septiembre y octubre. El Pre-Cyber duró 6 días y el Pre-Black 5; el Black dura 11 días y el Cyber 10.</p>
+<script>
+(function(){
+var SEC=[{"t": "Captar la lista", "sub": ["plan: 3 al 14 nov", "antes: 12 al 23 sep"], "slots": [{"pd": 3, "pm": 81000, "st": "l", "hf": "2026-09-12", "hg": 62753, "hv": 0}, {"pd": 4, "pm": 81000, "st": "l", "hf": "2026-09-13", "hg": 76190, "hv": 0}, {"pd": 5, "pm": 81000, "st": "l", "hf": "2026-09-14", "hg": 77249, "hv": 225490}, {"pd": 6, "pm": 81000, "st": "l", "hf": "2026-09-15", "hg": 86666, "hv": 694300}, {"pd": 7, "pm": 81000, "st": "l", "hf": "2026-09-16", "hg": 65690, "hv": 70000}, {"pd": 8, "pm": 81000, "st": "l", "hf": "2026-09-17", "hg": 62590, "hv": 333900}, {"pd": 9, "pm": 101000, "st": "l", "hf": "2026-09-18", "hg": 65004, "hv": 0}, {"pd": 10, "pm": 101000, "st": "l", "hf": "2026-09-19", "hg": 44388, "hv": 0}, {"pd": 11, "pm": 101000, "st": "l", "hf": "2026-09-20", "hg": 52088, "hv": 0}, {"pd": 12, "pm": 141000, "st": "l", "hf": "2026-09-21", "hg": 111416, "hv": 1377990}, {"pd": 13, "pm": 141000, "st": "l", "hf": "2026-09-22", "hg": 84573, "hv": 1306300}, {"pd": 14, "pm": 141000, "st": "l", "hf": "2026-09-23", "hg": 73377, "hv": 322000}], "tp": 1212000, "tg": 861984, "tv": 4329980}, {"t": "Pre-Black", "sub": ["plan: 15 al 19 nov", "antes: Pre-Cyber 24 al 29 sep"], "slots": [{"pd": 15, "pm": 191000, "st": "p", "hf": "2026-09-24", "hg": 67767, "hv": 10260950}, {"pd": 16, "pm": 191000, "st": "p", "hf": "2026-09-25", "hg": 69685, "hv": 2898420}, {"pd": 17, "pm": 191000, "st": "p", "hf": "2026-09-26", "hg": 48814, "hv": 1610311}, {"pd": 18, "pm": 191000, "st": "p", "hf": "2026-09-27", "hg": 74684, "hv": 996030}, {"pd": 19, "pm": 191000, "st": "p", "hf": "2026-09-28", "hg": 75512, "hv": 3799124}, {"pd": null, "pm": null, "st": null, "hf": "2026-09-29", "hg": 85723, "hv": 4891710}], "tp": 955000, "tg": 422185, "tv": 24456545}, {"t": "Black", "sub": ["plan: 20 al 30 nov", "antes: Cyber 30 sep al 9 oct"], "slots": [{"pd": 20, "pm": 145500, "st": "b", "hf": "2026-09-30", "hg": 247863, "hv": 6950950}, {"pd": 21, "pm": 145500, "st": "b", "hf": "2026-10-01", "hg": 238465, "hv": 2301520}, {"pd": 22, "pm": 145500, "st": "b", "hf": "2026-10-02", "hg": 215685, "hv": 2556200}, {"pd": 23, "pm": 145500, "st": "b", "hf": "2026-10-03", "hg": 223427, "hv": 2420130}, {"pd": 24, "pm": 145500, "st": "b", "hf": "2026-10-04", "hg": 271830, "hv": 272700}, {"pd": 25, "pm": 145500, "st": "b", "hf": "2026-10-05", "hg": 287185, "hv": 2165940}, {"pd": 26, "pm": 145500, "st": "b", "hf": "2026-10-06", "hg": 345996, "hv": 3838490}, {"pd": 27, "pm": 285500, "st": "b", "hf": "2026-10-07", "hg": 365553, "hv": 4366200}, {"pd": 28, "pm": 195500, "st": "b", "hf": "2026-10-08", "hg": 355212, "hv": 3340800}, {"pd": 29, "pm": 195500, "st": "b", "hf": "2026-10-09", "hg": 232037, "hv": 2060800}, {"pd": 30, "pm": 285500, "st": "b", "hf": null, "hg": null, "hv": null}], "tp": 1980500, "tg": 2783253, "tv": 30273730}];
+var $=function(s){return document.querySelector(s)};
+var fmt=function(n){return '$'+Math.round(n).toLocaleString('es-CL')};
+var fm=function(n){return '$'+(n/1e6).toFixed(1).replace('.',',')+' M'};
+var MES=['','ene','feb','mar','abr','may','jun','jul','ago','sep','oct','nov','dic'];
+var dm=function(f){return parseInt(f.slice(8),10)+' '+MES[parseInt(f.slice(5,7),10)]};
+var dm2=function(f){return parseInt(f.slice(8),10)+'/'+parseInt(f.slice(5,7),10)};
+var stCol={l:'#e08ab8',p:'#c23a8c',b:'#15101a'};
+var stNom={l:'Captar la lista',p:'Pre-Black',b:'Black'};
+var HC='#9a9096',VC='#1c6b34';
+var on={plan:true,hg:true,hv:true,m10:true};
+var W=940,L=62,R=10,GAP=22;
+var all=[];SEC.forEach(function(s,si){s.slots.forEach(function(o,i){o.si=si;o.i=i;all.push(o)})});
+var n=all.length,nsec=SEC.length;
+var sw=(W-L-R-GAP*(nsec-1))/n;
+var xs=[],x=L;SEC.forEach(function(s,si){s.x0=x;s.slots.forEach(function(o){o.x=x;x+=sw});s.x1=x;x+=GAP});
+var T1=114,H1=190,T2=T1+H1+48,H2=130,BOT=T2+H2+44;
+var mx1=400000,mx2=11000000;
+function y1(v){return T1+H1*(1-v/mx1)}
+function y2(v){return T2+H2*(1-v/mx2)}
+function build(){
+  var s='<svg viewBox="0 0 '+W+' '+BOT+'" id="tl-svg" role="img" aria-label="Gasto planificado de noviembre frente al gasto y las ventas del Pre-Cyber y el Cyber, por tramo">';
+  SEC.forEach(function(sec,si){
+    s+='<rect x="'+(sec.x0-3)+'" y="2" width="'+(sec.x1-sec.x0+6)+'" height="'+(BOT-30)+'" rx="6" fill="'+['#fbf1f6','#f6e3ee','#efeaf2'][si]+'"/>';
+    s+='<text x="'+(sec.x0+2)+'" y="20" font-size="13.5" font-weight="700" fill="#1b1417">'+sec.t+'</text><text x="'+(sec.x0+2)+'" y="35" font-size="10.5" fill="#5d5258">'+sec.sub[0]+'</text><text x="'+(sec.x0+2)+'" y="48" font-size="10.5" fill="#5d5258">'+sec.sub[1]+'</text><text x="'+(sec.x0+2)+'" y="63" font-size="10.5" font-weight="600" fill="#1b1417">Gasto del tramo: plan '+fmt(sec.tp)+'</text><text x="'+(sec.x0+2)+'" y="76" font-size="10.5" fill="#5d5258">gasto de antes '+fmt(sec.tg)+'</text><text x="'+(sec.x0+2)+'" y="89" font-size="10.5" fill="#5d5258">ventas de antes '+fm(sec.tv)+' ('+(sec.tv/sec.tg).toFixed(1).replace('.',',')+'×)</text>';
+  });
+  s+='<text x="'+(L)+'" y="'+(T1-6)+'" font-size="11.5" font-weight="600" fill="#5d5258">Gasto en Meta por día</text>';
+  [0,100000,200000,300000,400000].forEach(function(t){var y=y1(t);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#e4dad6"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#5d5258">'+(t/1000)+' mil</text>'});
+  all.forEach(function(o){
+    var bx=o.x+sw*0.08,bwid=sw*0.4;
+    if(on.plan&&o.pm!=null){s+='<rect x="'+bx+'" y="'+y1(o.pm)+'" width="'+bwid+'" height="'+(y1(0)-y1(o.pm))+'" fill="'+stCol[o.st]+'"/>'}
+    if(on.hg&&o.hg!=null){s+='<rect x="'+(bx+bwid+1)+'" y="'+y1(o.hg)+'" width="'+bwid+'" height="'+(y1(0)-y1(o.hg))+'" fill="'+HC+'"/>'}
+  });
+  s+='<text x="'+L+'" y="'+(T2-6)+'" font-size="11.5" font-weight="600" fill="#5d5258">Ventas de la tienda por día en el historial</text>';
+  [0,5000000,10000000].forEach(function(t){var y=y2(t);s+='<line x1="'+L+'" x2="'+(W-R)+'" y1="'+y+'" y2="'+y+'" stroke="#e4dad6"/><text x="'+(L-6)+'" y="'+(y+4)+'" text-anchor="end" font-size="11" fill="#5d5258">'+(t/1e6)+' M</text>'});
+  all.forEach(function(o){
+    if(on.hv&&o.hv!=null){var bx=o.x+sw*0.12,bwid=sw*0.76;s+='<rect x="'+bx+'" y="'+y2(o.hv)+'" width="'+bwid+'" height="'+(y2(0)-y2(o.hv))+'" fill="'+VC+'"/>'}
+  });
+  if(on.m10){SEC.forEach(function(sec){var pts=[];sec.slots.forEach(function(o){if(o.pm!=null)pts.push((o.x+sw/2)+','+y2(o.pm*10))});if(pts.length>1)s+='<polyline fill="none" stroke="#1b1417" stroke-width="2" stroke-dasharray="5 3" points="'+pts.join(' ')+'"/>';sec.slots.forEach(function(o){if(o.pm!=null)s+='<circle cx="'+(o.x+sw/2)+'" cy="'+y2(o.pm*10)+'" r="2.6" fill="#fff" stroke="#1b1417" stroke-width="1.6"/>'})})}
+  all.forEach(function(o){if(on.hv&&o.hv!=null&&o.hv>=4000000)s+='<text x="'+(o.x+sw/2)+'" y="'+(y2(o.hv)-4)+'" text-anchor="middle" font-size="10" font-weight="700" fill="#1c6b34">'+fm(o.hv).replace(' M','')+' M</text>'});
+  all.forEach(function(o){
+    var cx=o.x+sw/2;
+    if(o.pd!=null)s+='<text x="'+cx+'" y="'+(T2+H2+14)+'" text-anchor="middle" font-size="10.5" font-weight="600" fill="#1b1417">'+o.pd+'</text>';
+    if(o.hf)s+='<text x="'+cx+'" y="'+(T2+H2+27)+'" text-anchor="middle" font-size="8.5" fill="#5d5258">'+dm2(o.hf)+'</text>';
+  });
+  s+='<text x="'+(L-6)+'" y="'+(T2+H2+14)+'" text-anchor="end" font-size="10" fill="#1b1417">nov</text><text x="'+(L-6)+'" y="'+(T2+H2+27)+'" text-anchor="end" font-size="9" fill="#5d5258">antes</text>';
+  return s+'</svg>';
+}
+function read(o){
+  var h='';
+  if(o.pd!=null)h+='<b>'+o.pd+' de noviembre</b> · plan '+fmt(o.pm)+' ('+stNom[o.st]+')';else h+='<b>Sin día equivalente en el plan</b>';
+  if(o.pm!=null)h+='<br>Para un retorno de 10× el día tendría que vender <b>'+fm(o.pm*10)+'</b>';if(o.hf)h+='<br>El día equivalente de antes, <b>'+dm(o.hf)+'</b>: gasto '+fmt(o.hg)+' · ventas de la tienda '+fm(o.hv);else h+='<br>Sin día equivalente en el historial';
+  return h;
+}
+function draw(){
+  $('#tl-chart').innerHTML=build();
+  var svg=$('#tl-svg');
+  svg.addEventListener('mousemove',function(e){var r=svg.getBoundingClientRect();var px=(e.clientX-r.left)/r.width*W;
+    for(var k=0;k<all.length;k++){if(px>=all[k].x&&px<all[k].x+sw){$('#tl-read').innerHTML=read(all[k]);break}}});
+}
+document.querySelectorAll('.tl-ctl input').forEach(function(c){c.addEventListener('change',function(){on[c.dataset.k]=c.checked;draw()})});
+$('#tl-read').innerHTML='Pasa el cursor por un día para ver el plan y el día equivalente de antes.';
+draw();
+})();
+</script>
+
+
+<h2>A qué campaña va cada peso, y por qué</h2>
+<div class="tarjetas">
+  <div class="tarjeta">
+    <h3><span class="monto">$970.000</span>Lista · «EVENTO WEB · Lista Black | 29.10»</h3>
+    <p>Todo en una sola campaña. Hoy $13.000 al día, y sube a $45.000 con los anuncios nuevos. Plan: $40.000 del 3 al 8, $60.000 del 9 al 11, $100.000 del 12 al 14 y $50.000 del 15 al 19.</p>
+    <p class="q">Por qué: es lo que más retornó. Pero el costo por inscrita pasó de $332 a $1.259 en 5 días y la campaña del Pre-Cyber nunca pasó de $13.154 al día. Se sube dentro de la misma campaña, con anuncios y gráficas nuevas. La audiencia actual es de unas 600 mil personas: más arriba de $75.000 al día hacen falta públicos nuevos.</p>
+  </div>
+  <div class="tarjeta">
+    <h3><span class="monto">$500.000</span>Pre-Black · acceso lista · ventas web</h3>
+    <p>$100.000 al día, solo para la lista y quienes visitaron la web. El 15 y el 16 puede subir hasta $150.000 con la reserva.</p>
+    <p class="q">Por qué: «Acceso lista» trajo 21 compras con $11.700 al día y el primer día vendió $10,3 M. Es la etapa que mejor convirtió. La audiencia ahora es más grande y con el incentivo del iPhone; se vigila la frecuencia.</p>
+  </div>
+  <div class="tarjeta">
+    <h3><span class="monto">$1.810.000</span>Black · «BLACK · Ventas web · Depilación»</h3>
+    <p>$130.000 al día del 20 al 26, $270.000 el 27 y el 30, $180.000 el 28 y el 29. Tres grupos de anuncios: 80% ganadores, 15% iteraciones, 5% piezas nuevas. Axilas y glúteos con tope.</p>
+    <p class="q">Por qué: en el Cyber se gastó cuatro veces más por día que en el Pre-Cyber y se vendió menos por día. Con menos de $260.000 al día, cada $1 trajo $4,97 en web; con más, $4,39. Más gasto en el Black no es más venta.</p>
+  </div>
+  <div class="tarjeta">
+    <h3><span class="monto">$392.000</span>WhatsApp cliente nuevo · $14.000 al día</h3>
+    <p>Como hoy, separado de AON.</p>
+  </div>
+  <div class="tarjeta">
+    <h3><span class="monto">$475.500</span>Base de AON · AON WEB $12.000 y AON WhatsApp $15.000 al día</h3>
+    <p>Hasta el 19, es donde entra la oferta para seguir vendiendo mientras se calienta la audiencia. Del 20 al 30 baja al nivel del Cyber, unos $1.500 al día.</p>
+  </div>
+  <div class="tarjeta">
+    <h3><span class="monto">$767.285</span>Reserva para empujar sobre la marcha</h3>
+    <p>Es para empujar sobre la marcha lo que esté funcionando, cuando el costo por lead o por pago iniciado se mantiene y el retorno real es de 10× o más. Orden de uso: 1) la lista, hasta $500.000 más si el costo por inscrita se mantiene razonable; 2) los días fuertes del Pre-Black, hasta $150.000 al día; 3) los picos del Black; 4) la extensión.</p>
+  </div>
+</div>
+
+<section class="decidir" style="margin-top:36px">
+  <h2>Para decidir</h2>
+  <ul>
+    <li><b>Meta de 1.200 inscritas.</b> Hoy hay 90. Con $970.000 llegamos a unas 790 inscritas si el costo se queda en $1.389 (el de hoy), a unas 1.130 si baja a $930 y a unas 1.330 si baja a $780. Para 1.200 el costo tiene que quedar bajo unos $870 en promedio. El gasto de $100.000 al día nunca se probó: se sube mirando el costo por lead cada día.</li>
+    <li><b>Quitar el término programado de la lista</b> (15 de noviembre a las 00:00), para que siga captando durante el Pre-Black.</li>
+    <li><b>Oferta de calentamiento.</b> Sissy prepara la de onicomicosis; hay que definir fecha y presupuesto dentro de la base de AON.</li>
+    <li><b>Extensión hasta el 7 de diciembre.</b> Se decide el sábado 28 de noviembre. Si se anuncia, el presupuesto sería de $80.000 a $120.000 al día, aparte de este plan.</li>
+  </ul>
+</section>
+
+<h2>Y en diciembre</h2>
+<p>Propuesta inicial, se ajusta con el resultado del Black. En diciembre de 2025 Meta gastó $6,0 M y la tienda vendió $39,6 M (6,6×), casi lo mismo que en noviembre; enero cayó 47%. El 84% de la venta de diciembre fue en el local.</p>
+<div class="tabla"><table>
+<thead><tr><th>Semana</th><th>Qué pasa</th><th class="n">Gasto en Meta</th></tr></thead>
+<tbody>
+<tr><td>1 al 6 dic</td><td>Cierre del Black. Calentamiento de Navidad: $30.000 al día</td><td class="n">$426.000</td></tr>
+<tr><td>7 al 13 dic</td><td>Sorteo el martes 8. Desde el 8, tarjeta de regalo: $50.000 al día</td><td class="n">$617.000</td></tr>
+<tr><td>14 al 20 dic</td><td>Navidad: tarjeta de regalo y packs, $50.000 al día</td><td class="n">$637.000</td></tr>
+<tr><td>21 al 27 dic</td><td>Última semana de regalos hasta el 24. Desde el 25, verano: $40.000 al día</td><td class="n">$607.000</td></tr>
+<tr><td>28 al 31 dic</td><td>Verano: packs de 6 sesiones para empezar en enero, $40.000 al día</td><td class="n">$324.000</td></tr>
+</tbody>
+<tfoot><tr><td colspan="2">Gasto planificado, con la base de AON y WhatsApp de $41.000 al día</td><td class="n">$2.611.000</td></tr>
+<tr><td colspan="2">Reserva por señal</td><td class="n">$389.000</td></tr>
+<tr><td colspan="2">Total de diciembre, sin extensión</td><td class="n">$3.000.000</td></tr></tfoot>
+</table></div>
+<ul class="reglas" style="margin-top:12px">
+  <li><b>Extensión del Black hasta el 7 de diciembre:</b> si se anuncia, suma entre $560.000 y $840.000 aparte ($80.000 a $120.000 al día).</li>
+  <li><b>Regalo:</b> en el Día de la Mamá se vendieron 12 tarjetas por $887.000, todas online. Los compradores con nombre de hombre pagan zonas de mujer: es una hipótesis para probar, no un hecho.</li>
+  <li><b>Verano:</b> enero cae a la mitad. Los packs de 6 sesiones vendidos en diciembre llenan la agenda de enero.</li>
+  <li><b>Recompra sin gasto en Meta:</b> correos y WhatsApp desde el 15 de diciembre. El 67% de las clientas compra una sola vez y la segunda compra llega a los 18 días (mediana).</li>
+  <li><b>Base de AON:</b> hay que revisarla. Fuera de los eventos, AON WEB casi no vendió: 2 compras en 14 días de octubre.</li>
+</ul>
+
+<h2>Cómo se ajusta durante el mes</h2>
+<ul class="reglas">
+  <li>Cada subida es de 20% cada 48 a 72 horas, y solo si el costo por pago iniciado o por lead se mantiene.</li>
+  <li>El martes 17 se revisa cada anuncio contra los de su mismo formato. Los que no vendieron al tercer día casi nunca vendieron después.</li>
+  <li>El presupuesto del Black no se mueve sin que lo apruebe el equipo.</li>
+</ul>
+
+<footer>
+  Fuentes: <a href="2026-11-02-historico-precyber-cyber-kyest.html">histórico del Pre-Cyber y el Cyber</a> (Meta y Shopify, septiembre y octubre) · presupuestos y gasto de Meta del 2 de noviembre a las 15:14 · inscritas en MailerLite, 2 de noviembre a las 14:52 · reunión con Sissy del 2 de noviembre. Los montos son una propuesta; ninguno está aplicado.
+</footer>
+
+</main>
+</body>
+</html>
